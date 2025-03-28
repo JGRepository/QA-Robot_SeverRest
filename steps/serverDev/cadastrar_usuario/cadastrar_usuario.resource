@@ -18,7 +18,8 @@ eu preencho o campo EMAIL
     Wait Until Element Is Visible     ${CAD_USUARIO.EMAIL.INPUT}     timeout=15s
     ${USER_ID}    user_id_generator    ${NOME_FAKER}
     Input Text     ${CAD_USUARIO.EMAIL.INPUT}    ${USER_ID}@qateste.com.br
-    Log To Console  ${USER_ID}@qateste.com.br
+    RETURN    ${USER_ID}@qateste.com.br
+   
 
 eu preencho o campo SENHA
    Wait Until Element Is Visible     ${CAD_USUARIO.SENHA.INPUT}     timeout=15s
