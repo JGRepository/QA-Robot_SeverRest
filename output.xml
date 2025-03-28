@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.4 on win32)" generated="2025-03-27T17:07:06.610050" rpa="false" schemaversion="5">
+<suite id="s1" name="Login Tests" source="c:\GitHub\QA-Robot_SeverRest\tests\serverDev\login\login_tests.robot">
+<test id="s1-t1" name="Verifica tentativa de login sem preencher os campos de email e senha" line="11">
+<kw name="eu acesso o site" owner="commons" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-27T17:07:07.217066" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
+<arg>${URL_SERVERDEV}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-27T17:07:07.217066" elapsed="5.196841"/>
+</kw>
+<status status="PASS" start="2025-03-27T17:07:07.216062" elapsed="5.199038"/>
+</kw>
+<kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.419845" elapsed="0.062434"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-27T17:07:12.483279" level="INFO">Typing text '' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.483279" elapsed="0.079739"/>
+</kw>
+<arg>${EMPTY}</arg>
+<status status="PASS" start="2025-03-27T17:07:12.418845" elapsed="0.144173"/>
+</kw>
+<kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.566019" elapsed="0.057953"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-27T17:07:12.623972" level="INFO">Typing text '' into text field 'css=[data-testid="senha"]'.</msg>
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.623972" elapsed="0.048763"/>
+</kw>
+<arg>${EMPTY}</arg>
+<status status="PASS" start="2025-03-27T17:07:12.564018" elapsed="0.108717"/>
+</kw>
+<kw name="When eu clique no botão ENTRAR" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.674816" elapsed="0.014427"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-03-27T17:07:12.689243" level="INFO">Clicking button 'css=[data-testid="entrar"]'.</msg>
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.689243" elapsed="0.060715"/>
+</kw>
+<status status="PASS" start="2025-03-27T17:07:12.674816" elapsed="0.075142"/>
+</kw>
+<kw name="Then alert de validação de email em branco" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.EMAIL_ALERT.SPAN}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-27T17:07:12.749958" elapsed="0.875461"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-03-27T17:07:13.646340" level="INFO">${text} = Email é obrigatório</msg>
+<var>${text}</var>
+<arg>${LOGIN.EMAIL_ALERT.SPAN}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-27T17:07:13.625419" elapsed="0.020921"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${text}</arg>
+<arg>Email é obrigatório</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-03-27T17:07:13.647339" elapsed="0.001156"/>
+</kw>
+<status status="PASS" start="2025-03-27T17:07:12.749958" elapsed="0.898537"/>
+</kw>
+<kw name="fechar Browser" owner="commons" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-03-27T17:07:13.656185" elapsed="2.404835"/>
+</kw>
+<status status="PASS" start="2025-03-27T17:07:13.656185" elapsed="2.406011"/>
+</kw>
+<status status="PASS" start="2025-03-27T17:07:07.214799" elapsed="8.847397"/>
+</test>
+<status status="PASS" start="2025-03-27T17:07:06.613974" elapsed="9.448222"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Login Tests" id="s1" pass="1" fail="0" skip="0">Login Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-03-27T17:07:07.211023" level="ERROR">Error in file 'c:\GitHub\QA-Robot_SeverRest\common\commons.resource' on line 4: Library 'libs\webdriver.py' does not exist.</msg>
+</errors>
+</robot>

@@ -1,7 +1,6 @@
 *** Settings ***
 Resource    settings.resource
 
-Library    libs/webdriver.py
 Library    SeleniumLibrary
 
 *** Keywords ***
