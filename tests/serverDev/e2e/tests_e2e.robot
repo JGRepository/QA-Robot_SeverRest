@@ -1,8 +1,5 @@
 *** Settings ***
-Resource    ../../../steps/serverDev/login/login_steps.resource
-Resource    ../../../steps/serverDev/home/home_steps.resource
-Resource    ../../../steps/serverDev/cadastrar_usuario/cadastrar_usuario.resource
-Resource    ../../../steps/serverDev/listar_usuarios/listar_usuarios_steps.resource
+Resource    ../../../steps/settings_steps.resource
 Resource    ../../../common/commons.resource
 
 Test Setup    eu acesso o site
@@ -19,6 +16,19 @@ Verifica o cadastro de usuários na area logada
     ${EMAIL}    And eu preencho o campo EMAIL
                 And eu preencho o campo SENHA
                 And eu marco o checkbox de administrador
-                And eu clico no botão CADASTRAR
+                And eu clico no botão CADASTRAR    ${CAD_USUARIO.CADASTRAR.BTN} 
                 Then sou redirecionado para a tela de lista de usuários
                 And meu usuário foi cadastrado com sucesso    ${EMAIL}
+
+
+Verifica o cadastro de produtos na area logada
+    Given eu preencha o campo NOME com o [valor]   ${EMAIL_CASDASTRADO}
+    And eu preencha o campo SENHA com o [valor]   ${SENHA_CASDASTRADA} 
+    And eu clique no botão ENTRAR
+    And eu clico no item de MENU    CADASTRAR PRODUTO    ${HOME.MENU_CADASTRAR_PRODUTOS.BTN}
+    And eu preencho o [CAMPO] de cadastro de produto     NOME           ${CAD_PRODUTO.NOME.INPUT}             ${NOME_PRODUTO}
+    And eu preencho o [CAMPO] de cadastro de produto     PREÇO          ${CAD_PRODUTO.PRECO.INPUT}            ${PRECO_PRODUTO} 
+    And eu preencho o [CAMPO] de cadastro de produto     DRESCRIÇÃO     ${CAD_PRODUTO.DESCRICAO.INPUT}        ${DESCRICAO_PRODUTO}  
+    And eu preencho o [CAMPO] de cadastro de produto     QUANTIDADE     ${CAD_PRODUTO.QUANTIDADE.INPUT}       ${QUANTIDADE_PRODUTO}  
+    And eu insiro uma imagem do produto
+    When eu clico no botão CADASTRAR    ${CAD_PRODUTO.CADASTRAR.BTN}

@@ -10,3 +10,8 @@ eu acesso o site
 
 fechar Browser
     Close Browser
+
+eu clico no botão CADASTRAR
+    [Arguments]    ${SELECTOR}
+    Wait Until Element Is Visible     ${SELECTOR}     timeout=15s
+    Click Button   ${SELECTOR}

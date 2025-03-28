@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.4 on win32)" generated="2025-03-28T18:08:25.078327" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests E2E" source="c:\GitHub\QA-Robot_SeverRest\tests\serverDev\e2e\tests_e2e.robot">
+<test id="s1-t1" name="Verifica o cadastro de produtos na area logada" line="24">
+<kw name="eu acesso o site" owner="commons" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:26.292750" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
+<arg>${URL_SERVERDEV}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-28T18:08:26.290743" elapsed="5.120337"/>
+</kw>
+<status status="PASS" start="2025-03-28T18:08:26.287965" elapsed="5.124119"/>
+</kw>
+<kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.415573" elapsed="0.033770"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:31.450685" level="INFO">Typing text 'robot@example.com' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.450685" elapsed="0.300933"/>
+</kw>
+<arg>${EMAIL_CASDASTRADO}</arg>
+<status status="PASS" start="2025-03-28T18:08:31.414146" elapsed="0.337472"/>
+</kw>
+<kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.757134" elapsed="0.047048"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:31.805186" level="INFO">Typing text 'senharobot' into text field 'css=[data-testid="senha"]'.</msg>
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.805186" elapsed="0.124780"/>
+</kw>
+<arg>${SENHA_CASDASTRADA}</arg>
+<status status="PASS" start="2025-03-28T18:08:31.756130" elapsed="0.173836"/>
+</kw>
+<kw name="And eu clique no botão ENTRAR" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.931183" elapsed="0.032883"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:31.965557" level="INFO">Clicking button 'css=[data-testid="entrar"]'.</msg>
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:31.964066" elapsed="0.095047"/>
+</kw>
+<status status="PASS" start="2025-03-28T18:08:31.929966" elapsed="0.129147"/>
+</kw>
+<kw name="And eu clico no item de MENU" owner="home_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:32.061664" elapsed="1.364061"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:33.425725" level="INFO">Clicking element 'css=[data-testid="cadastrar-produtos"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.425725" elapsed="0.046716"/>
+</kw>
+<arg>CADASTRAR PRODUTO</arg>
+<arg>${HOME.MENU_CADASTRAR_PRODUTOS.BTN}</arg>
+<status status="PASS" start="2025-03-28T18:08:32.060622" elapsed="1.412583"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.474883" elapsed="0.034506"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:33.509389" level="INFO">Typing text 'QA_PRODUTO_LIVRO' into text field 'css=[data-testid="nome"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.509389" elapsed="0.123932"/>
+</kw>
+<arg>NOME</arg>
+<arg>${CAD_PRODUTO.NOME.INPUT}</arg>
+<arg>${NOME_PRODUTO}</arg>
+<status status="PASS" start="2025-03-28T18:08:33.473205" elapsed="0.161493"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.635821" elapsed="0.017011"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:33.653836" level="INFO">Typing text '12345' into text field 'css=[data-testid="preco"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.653836" elapsed="0.169625"/>
+</kw>
+<arg>PREÇO</arg>
+<arg>${CAD_PRODUTO.PRECO.INPUT}</arg>
+<arg>${PRECO_PRODUTO}</arg>
+<status status="PASS" start="2025-03-28T18:08:33.634698" elapsed="0.190214"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.826315" elapsed="0.016082"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:33.842397" level="INFO">Typing text 'QA_PRODUTO_LIVRO_DESCRIÇÃO' into text field 'css=[data-testid="descricao"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.842397" elapsed="0.136667"/>
+</kw>
+<arg>DRESCRIÇÃO</arg>
+<arg>${CAD_PRODUTO.DESCRICAO.INPUT}</arg>
+<arg>${DESCRICAO_PRODUTO}</arg>
+<status status="PASS" start="2025-03-28T18:08:33.824912" elapsed="0.154152"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.979716" elapsed="0.013522"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:33.993238" level="INFO">Typing text '100' into text field 'css=[data-testid="quantity"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:33.993238" elapsed="0.099846"/>
+</kw>
+<arg>QUANTIDADE</arg>
+<arg>${CAD_PRODUTO.QUANTIDADE.INPUT}</arg>
+<arg>${QUANTIDADE_PRODUTO}</arg>
+<status status="PASS" start="2025-03-28T18:08:33.979716" elapsed="0.113368"/>
+</kw>
+<kw name="And eu insiro uma imagem do produto" owner="cadastrar_produto_steps">
+<kw name="Choose File" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:34.093706" level="INFO">Sending c:\GitHub\QA-Robot_SeverRest\resources\serverDev\assets\casdastro_produto_livro_teste.webp to browser.</msg>
+<arg>${CAD_PRODUTO.IMAGEM.INPUT}</arg>
+<arg>${IMAGEM_PATH}</arg>
+<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:34.093706" elapsed="0.053591"/>
+</kw>
+<status status="PASS" start="2025-03-28T18:08:34.093706" elapsed="0.054558"/>
+</kw>
+<kw name="When eu clico no botão CADASTRAR" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-28T18:08:34.149803" elapsed="0.035311"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-03-28T18:08:34.186192" level="INFO">Clicking button 'css=[data-testid="cadastarProdutos"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-28T18:08:34.186192" elapsed="0.070034"/>
+</kw>
+<arg>${CAD_PRODUTO.CADASTRAR.BTN}</arg>
+<status status="PASS" start="2025-03-28T18:08:34.148264" elapsed="0.107962"/>
+</kw>
+<kw name="fechar Browser" owner="commons" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-03-28T18:08:34.257697" elapsed="2.459778"/>
+</kw>
+<status status="PASS" start="2025-03-28T18:08:34.257697" elapsed="2.460926"/>
+</kw>
+<status status="PASS" start="2025-03-28T18:08:26.285958" elapsed="10.435448"/>
+</test>
+<status status="PASS" start="2025-03-28T18:08:25.081845" elapsed="11.644528"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests E2E" id="s1" pass="1" fail="0" skip="0">Tests E2E</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

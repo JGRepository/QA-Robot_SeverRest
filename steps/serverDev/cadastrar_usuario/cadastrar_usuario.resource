@@ -28,5 +28,3 @@ eu preencho o campo SENHA
 eu marco o checkbox de administrador
     Click Element    ${CAD_USUARIO.ADMIN.CHECKBOX} 
 
-eu clico no botão CADASTRAR
-    Click Button    ${CAD_USUARIO.CADASTRAR.BTN}
