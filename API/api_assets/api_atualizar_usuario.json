@@ -1,6 +1,6 @@
 {
-    "nome": "ROBOT",
+    "nome": "ROBOT_ATUALIZAR",
     "email": "robot@example.com",
     "password": "senharobot",
-    "administrador": "true"
+    "administrador": "false"
 }

@@ -1,5 +1,6 @@
 *** Settings ***
 Resource    ../../../steps/settings_steps.resource
+Resource    ../../../API/serverestDev/steps/cadastro_usuario_api_steps.resource
 Resource    ../../../common/commons.resource
 
 Test Setup    eu acesso o site
@@ -8,6 +9,10 @@ Test Teardown    fechar Browser
 *** Test Cases ***
 
 Verifica o cadastro de usuários na area logada
+                Configurar usuário antes do inicio dos testes
+    ${ID}       Enviar Requisição POST de Criação de Usuários
+
+                
                 Given eu preencha o campo NOME com o [valor]   ${EMAIL_CASDASTRADO}
                 And eu preencha o campo SENHA com o [valor]   ${SENHA_CASDASTRADA} 
                 And eu clique no botão ENTRAR
@@ -20,6 +25,7 @@ Verifica o cadastro de usuários na area logada
                 Then sou redirecionado para a tela de lista de usuários
                 And meu usuário foi cadastrado com sucesso    ${EMAIL}
 
+                Enviar Requisição DELETE de Excluir Usuários                       ${ID}
 
 Verifica o cadastro de produtos na area logada
     Given eu preencha o campo NOME com o [valor]   ${EMAIL_CASDASTRADO}
