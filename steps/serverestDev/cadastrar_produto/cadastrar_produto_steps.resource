@@ -1,6 +1,6 @@
 *** Settings ***
-Resource    ../../../resources/serverDev/cadastro_produtos/cadastro_produtos.resource
-Resource    ../../../resources/serverDev/assets/assets.resource
+Resource    ../../../resources/serverestDev/cadastro_produtos/cadastro_produtos.resource
+Resource    ../../../resources/serverestDev/assets/assets.resource
 Resource    ../../../common/settings.resource
 
 Library    SeleniumLibrary

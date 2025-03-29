@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../../resources/serverDev/login/login.resource
+Resource    ../../../resources/serverestDev/login/login.resource
 Library           SeleniumLibrary
 
 

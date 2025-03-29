@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../../steps/serverDev/login/login_steps.resource
+Resource    ../../../steps/serverestDev/login/login_steps.resource
 Resource    ../../../common/commons.resource
 
 Test Setup    eu acesso o site

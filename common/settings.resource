@@ -1,6 +1,6 @@
 *** Variables ***
 
-${URL_SERVERDEV}            https://front.serverest.dev/
+${URL_serverestDev}         https://front.serverest.dev/
 ${HEADLESS}                 false
 ${BROWSER}                  chrome
 

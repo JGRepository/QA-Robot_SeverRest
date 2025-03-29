@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../../resources/serverDev/cadastro_usuarios/cadastro_usuarios.resource
+Resource    ../../../resources/serverestDev/cadastro_usuarios/cadastro_usuarios.resource
 Resource    ../../../common/settings.resource
 
 Library    ../../../common/libs/user_id_generator.py

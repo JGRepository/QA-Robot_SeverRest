@@ -6,7 +6,7 @@ Library    SeleniumLibrary
 *** Keywords ***
 eu acesso o site
 
-    Open Browser    ${URL_SERVERDEV}    ${BROWSER}     
+    Open Browser    ${URL_serverestDev}    ${BROWSER}     
 
 fechar Browser
     Close Browser

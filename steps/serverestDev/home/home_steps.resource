@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../../resources/serverDev/home/home.resource
+Resource    ../../../resources/serverestDev/home/home.resource
 Library    SeleniumLibrary
 
 *** Keywords ***

@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../../resources/serverDev/listar_usuarios/listar_usuarios.resource
+Resource    ../../../resources/serverestDev/listar_usuarios/listar_usuarios.resource
 Library    SeleniumLibrary
 
 *** Keywords ***

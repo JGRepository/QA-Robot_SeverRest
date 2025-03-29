@@ -1,195 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.2.2 (Python 3.11.4 on win32)" generated="2025-03-28T18:08:25.078327" rpa="false" schemaversion="5">
-<suite id="s1" name="Tests E2E" source="c:\GitHub\QA-Robot_SeverRest\tests\serverDev\e2e\tests_e2e.robot">
-<test id="s1-t1" name="Verifica o cadastro de produtos na area logada" line="24">
-<kw name="eu acesso o site" owner="commons" type="SETUP">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:26.292750" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
-<arg>${URL_SERVERDEV}</arg>
-<arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2025-03-28T18:08:26.290743" elapsed="5.120337"/>
+<robot generator="Robot 7.2.2 (Python 3.11.4 on win32)" generated="2025-03-29T15:07:47.827931" rpa="false" schemaversion="5">
+<suite id="s1" name="Cadastro Usuario Api Tests" source="c:\GitHub\QA-Robot_SeverRest\API\serverestDev\tests\cadastro_usuario_api_tests.robot">
+<test id="s1-t1" name="Verificar comportamento CRUD das APIs" line="5">
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:48.031742" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-29T15:07:48.031742" elapsed="0.002225"/>
 </kw>
-<status status="PASS" start="2025-03-28T18:08:26.287965" elapsed="5.124119"/>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-29T15:07:48.036088" level="INFO">${payload} = {'nome': 'ROBOT_ALTUALIZADO', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.035084" elapsed="0.001004"/>
 </kw>
-<kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${LOGIN.EMAIL.INPUT}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.415573" elapsed="0.033770"/>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-29T15:07:48.036088" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.036088" elapsed="0.000000"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:31.450685" level="INFO">Typing text 'robot@example.com' into text field 'css=[data-testid="email"]'.</msg>
-<arg>${LOGIN.EMAIL.INPUT}</arg>
-<arg>${value}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.450685" elapsed="0.300933"/>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:48.465360" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '110'} 
+ body=b'{"nome": "ROBOT_ALTUALIZADO", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-29T15:07:48.465360" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'caa57b7325b394e92d9122f3ec57f1bc;o=1', 'date': 'Sat, 29 Mar 2025 18:07:48 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "bFg0kwzr0nsLSUWQ"
+} 
+ </msg>
+<msg time="2025-03-29T15:07:48.465360" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.037557" elapsed="0.429104"/>
 </kw>
-<arg>${EMAIL_CASDASTRADO}</arg>
-<status status="PASS" start="2025-03-28T18:08:31.414146" elapsed="0.337472"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-29T15:07:48.467680" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'bFg0kwzr0nsLSUWQ'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.466661" elapsed="0.001019"/>
 </kw>
-<kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${LOGIN.SENHA.INPUT}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.757134" elapsed="0.047048"/>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.468916" elapsed="0.001019"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:31.805186" level="INFO">Typing text 'senharobot' into text field 'css=[data-testid="senha"]'.</msg>
-<arg>${LOGIN.SENHA.INPUT}</arg>
-<arg>${value}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.805186" elapsed="0.124780"/>
+<return>
+<value>${RESPONSE.json()}[_id]</value>
+<status status="PASS" start="2025-03-29T15:07:48.469935" elapsed="0.001019"/>
+</return>
+<msg time="2025-03-29T15:07:48.473463" level="INFO">${ID} = bFg0kwzr0nsLSUWQ</msg>
+<var>${ID}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-29T15:07:48.030236" elapsed="0.444226"/>
 </kw>
-<arg>${SENHA_CASDASTRADA}</arg>
-<status status="PASS" start="2025-03-28T18:08:31.756130" elapsed="0.173836"/>
+<kw name="Enviar Requisição GET de Lista de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:48.478257" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-29T15:07:48.476825" elapsed="0.002453"/>
 </kw>
-<kw name="And eu clique no botão ENTRAR" owner="login_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${LOGIN.ENTRAR.BUTTON}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.931183" elapsed="0.032883"/>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-29T15:07:48.480278" level="INFO">${EMAIL} = {'nome': 'ROBOT_ALTUALIZADO', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${EMAIL}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.479278" elapsed="0.001000"/>
 </kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:31.965557" level="INFO">Clicking button 'css=[data-testid="entrar"]'.</msg>
-<arg>${LOGIN.ENTRAR.BUTTON}</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:31.964066" elapsed="0.095047"/>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-29T15:07:48.481787" level="INFO">${PARAMS} = {'email': 'robot@example.com'}</msg>
+<var>${PARAMS}</var>
+<arg>email=${EMAIL}[email]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.480278" elapsed="0.001509"/>
 </kw>
-<status status="PASS" start="2025-03-28T18:08:31.929966" elapsed="0.129147"/>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:48.816275" level="INFO">GET Request : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ path_url=/usuarios?email=robot%40example.com 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-29T15:07:48.816275" level="INFO">GET Response : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '7d1b9f10c25252f949bf9007cbc31159', 'date': 'Sat, 29 Mar 2025 18:07:48 GMT', 'server': 'Google Frontend', 'Content-Length': '264'} 
+ body={
+    "quantidade": 1,
+    "usuarios": [
+        {
+            "nome": "ROBOT_ALTUALIZADO",
+            "email": "robot@example.com",
+            "password": "senharobot",
+            "administrador": "true",
+            "_id": "bFg0kwzr0nsLSUWQ"
+        }
+    ]
+} 
+ </msg>
+<msg time="2025-03-29T15:07:48.817522" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>params=${PARAMS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.482858" elapsed="0.334664"/>
 </kw>
-<kw name="And eu clico no item de MENU" owner="home_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:32.061664" elapsed="1.364061"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-29T15:07:48.818846" level="INFO">{'quantidade': 1, 'usuarios': [{'nome': 'ROBOT_ALTUALIZADO', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true', '_id': 'bFg0kwzr0nsLSUWQ'}]}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.817522" elapsed="0.002417"/>
 </kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:33.425725" level="INFO">Clicking element 'css=[data-testid="cadastrar-produtos"]'.</msg>
-<arg>${SELECTOR}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.425725" elapsed="0.046716"/>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2025-03-29T15:07:48.819939" elapsed="0.000000"/>
+</return>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-29T15:07:48.476825" elapsed="0.344154"/>
 </kw>
-<arg>CADASTRAR PRODUTO</arg>
-<arg>${HOME.MENU_CADASTRAR_PRODUTOS.BTN}</arg>
-<status status="PASS" start="2025-03-28T18:08:32.060622" elapsed="1.412583"/>
+<kw name="Enviar Requisição PUT de Alteração de Usuário alternando o NOME" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:48.826272" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-29T15:07:48.825272" elapsed="0.001999"/>
 </kw>
-<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.474883" elapsed="0.034506"/>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-29T15:07:48.828271" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${ATUALIZAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.827271" elapsed="0.002134"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:33.509389" level="INFO">Typing text 'QA_PRODUTO_LIVRO' into text field 'css=[data-testid="nome"]'.</msg>
-<arg>${SELECTOR}</arg>
-<arg>${TEXTO}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.509389" elapsed="0.123932"/>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-29T15:07:48.829405" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.829405" elapsed="0.001009"/>
 </kw>
-<arg>NOME</arg>
-<arg>${CAD_PRODUTO.NOME.INPUT}</arg>
-<arg>${NOME_PRODUTO}</arg>
-<status status="PASS" start="2025-03-28T18:08:33.473205" elapsed="0.161493"/>
+<kw name="PUT" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:49.171069" level="INFO">PUT Request : url=https://serverest.dev/usuarios/bFg0kwzr0nsLSUWQ 
+ path_url=/usuarios/bFg0kwzr0nsLSUWQ 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-29T15:07:49.171069" level="INFO">PUT Response : url=https://serverest.dev/usuarios/bFg0kwzr0nsLSUWQ 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '0e903364c5a314532e1363ec161b5ec8', 'date': 'Sat, 29 Mar 2025 18:07:49 GMT', 'server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg time="2025-03-29T15:07:49.172123" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2025-03-29T15:07:48.830414" elapsed="0.341709"/>
 </kw>
-<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.635821" elapsed="0.017011"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-29T15:07:49.173699" level="INFO">{'message': 'Registro alterado com sucesso'}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-29T15:07:49.172123" elapsed="0.002667"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:33.653836" level="INFO">Typing text '12345' into text field 'css=[data-testid="preco"]'.</msg>
-<arg>${SELECTOR}</arg>
-<arg>${TEXTO}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.653836" elapsed="0.169625"/>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Registro alterado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-29T15:07:49.174790" elapsed="0.001133"/>
 </kw>
-<arg>PREÇO</arg>
-<arg>${CAD_PRODUTO.PRECO.INPUT}</arg>
-<arg>${PRECO_PRODUTO}</arg>
-<status status="PASS" start="2025-03-28T18:08:33.634698" elapsed="0.190214"/>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2025-03-29T15:07:49.175923" elapsed="0.000000"/>
+</return>
+<arg>${ID}</arg>
+<doc>Envia Requisição PUT de Alteração de Usuário alternando o NOME</doc>
+<status status="PASS" start="2025-03-29T15:07:48.824271" elapsed="0.352744"/>
 </kw>
-<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.826315" elapsed="0.016082"/>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:49.179391" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-29T15:07:49.179391" elapsed="0.001014"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:33.842397" level="INFO">Typing text 'QA_PRODUTO_LIVRO_DESCRIÇÃO' into text field 'css=[data-testid="descricao"]'.</msg>
-<arg>${SELECTOR}</arg>
-<arg>${TEXTO}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.842397" elapsed="0.136667"/>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-29T15:07:49.506359" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/bFg0kwzr0nsLSUWQ 
+ path_url=/usuarios/bFg0kwzr0nsLSUWQ 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-29T15:07:49.507380" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/bFg0kwzr0nsLSUWQ 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '369dae08f7e26b919b3a855bd44c8997', 'date': 'Sat, 29 Mar 2025 18:07:49 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-29T15:07:49.508395" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-29T15:07:49.180405" elapsed="0.327990"/>
 </kw>
-<arg>DRESCRIÇÃO</arg>
-<arg>${CAD_PRODUTO.DESCRICAO.INPUT}</arg>
-<arg>${DESCRICAO_PRODUTO}</arg>
-<status status="PASS" start="2025-03-28T18:08:33.824912" elapsed="0.154152"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-29T15:07:49.510396" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-29T15:07:49.509396" elapsed="0.001000"/>
 </kw>
-<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.979716" elapsed="0.013522"/>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-29T15:07:49.511910" elapsed="0.001125"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:33.993238" level="INFO">Typing text '100' into text field 'css=[data-testid="quantity"]'.</msg>
-<arg>${SELECTOR}</arg>
-<arg>${TEXTO}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:33.993238" elapsed="0.099846"/>
+<arg>${ID}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-29T15:07:49.178028" elapsed="0.335007"/>
 </kw>
-<arg>QUANTIDADE</arg>
-<arg>${CAD_PRODUTO.QUANTIDADE.INPUT}</arg>
-<arg>${QUANTIDADE_PRODUTO}</arg>
-<status status="PASS" start="2025-03-28T18:08:33.979716" elapsed="0.113368"/>
-</kw>
-<kw name="And eu insiro uma imagem do produto" owner="cadastrar_produto_steps">
-<kw name="Choose File" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:34.093706" level="INFO">Sending c:\GitHub\QA-Robot_SeverRest\resources\serverDev\assets\casdastro_produto_livro_teste.webp to browser.</msg>
-<arg>${CAD_PRODUTO.IMAGEM.INPUT}</arg>
-<arg>${IMAGEM_PATH}</arg>
-<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:34.093706" elapsed="0.053591"/>
-</kw>
-<status status="PASS" start="2025-03-28T18:08:34.093706" elapsed="0.054558"/>
-</kw>
-<kw name="When eu clico no botão CADASTRAR" owner="commons">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-03-28T18:08:34.149803" elapsed="0.035311"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2025-03-28T18:08:34.186192" level="INFO">Clicking button 'css=[data-testid="cadastarProdutos"]'.</msg>
-<arg>${SELECTOR}</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2025-03-28T18:08:34.186192" elapsed="0.070034"/>
-</kw>
-<arg>${CAD_PRODUTO.CADASTRAR.BTN}</arg>
-<status status="PASS" start="2025-03-28T18:08:34.148264" elapsed="0.107962"/>
-</kw>
-<kw name="fechar Browser" owner="commons" type="TEARDOWN">
-<kw name="Close Browser" owner="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-03-28T18:08:34.257697" elapsed="2.459778"/>
-</kw>
-<status status="PASS" start="2025-03-28T18:08:34.257697" elapsed="2.460926"/>
-</kw>
-<status status="PASS" start="2025-03-28T18:08:26.285958" elapsed="10.435448"/>
+<status status="PASS" start="2025-03-29T15:07:48.029231" elapsed="1.484254"/>
 </test>
-<status status="PASS" start="2025-03-28T18:08:25.081845" elapsed="11.644528"/>
+<status status="PASS" start="2025-03-29T15:07:47.832042" elapsed="1.683780"/>
 </suite>
 <statistics>
 <total>
@@ -198,7 +256,7 @@
 <tag>
 </tag>
 <suite>
-<stat name="Tests E2E" id="s1" pass="1" fail="0" skip="0">Tests E2E</stat>
+<stat name="Cadastro Usuario Api Tests" id="s1" pass="1" fail="0" skip="0">Cadastro Usuario Api Tests</stat>
 </suite>
 </statistics>
 <errors>
