@@ -1,7 +1,8 @@
 *** Settings ***
 Resource    ../../api_assets/api_settings.resource
-Library  JSONLibrary
+Resource    ../../../common/settings.resource
 
+Library  JSONLibrary
 Library  RequestsLibrary
 Library    Collections
 
@@ -91,3 +92,29 @@ Configurar usuário antes do inicio dos testes
     ${ID_NOVO}          Enviar Requisição POST de Criação de Usuários
                         Enviar Requisição PUT de Alteração de Usuário alternando o NOME    ${ID_NOVO}
                         Enviar Requisição DELETE de Excluir Usuários                       ${ID_NOVO}
+
+
+Enviar Requisição GET de Lista de Usuários por nome
+    [Documentation]  Envia Requisição GET de Lista de Usuários por nome
+    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+    ${PARAMS}     Create Dictionary    nome=${PREFIXO_NOME_USUARIO} 
+    ${RESPONSE}  GET   ${BASE_URL}${URI.USUARIOS}    params=${PARAMS}    expected_status=200
+    ${JSON_CONTENT}     set Variable    ${response.json()}
+    Log  ${JSON_CONTENT}
+    RETURN  ${JSON_CONTENT}
+
+Enviar Requisição DELETE de Excluir TODOS Usuários
+     [Documentation]  Envia Requisição DELETE para excluir todos os usuários.
+    [Arguments]    ${JSON_CONTENT}
+    
+    Log    ${JSON_CONTENT}  
+    @{USUARIOS}=  Get From Dictionary  ${JSON_CONTENT}  usuarios
+    
+    FOR  ${USUARIO}  IN  @{USUARIOS}
+       ${ID_USUARIO}=  Get From Dictionary  ${USUARIO}  _id
+       Log  ID do Usuário: ${ID_USUARIO}
+        ${RESPONSE}=  DELETE  ${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}  expected_status=200
+       Log  Status da resposta: ${RESPONSE.status_code}
+       Log  Resposta: ${RESPONSE.content.decode("utf-8")}
+    END
+    

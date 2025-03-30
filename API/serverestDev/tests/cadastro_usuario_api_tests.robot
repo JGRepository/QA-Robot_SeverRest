@@ -11,3 +11,7 @@ Verificar comportamento CRUD das APIs
 
 Criar usuário
     Enviar Requisição POST de Criação de Usuários
+
+Apagar todos os usuários cadastrados da área logada
+    ${JSON_CONTENT}     Enviar Requisição GET de Lista de Usuários por nome
+                        Enviar Requisição DELETE de Excluir TODOS Usuários    ${JSON_CONTENT}

@@ -6,3 +6,5 @@ ${BROWSER}                  chrome
 
 ${EMAIL_CASDASTRADO}        robot@example.com
 ${SENHA_CASDASTRADA}        senharobot
+
+${PREFIXO_NOME_USUARIO}        QATEST_

@@ -26,4 +26,3 @@ alert de validação de email em branco
     Wait Until Element Is Visible     ${LOGIN.EMAIL_ALERT.SPAN}      timeout=15s
     ${TEXTO}    Get Text     ${LOGIN.EMAIL_ALERT.SPAN}
     Should Contain   ${TEXTO}   Email é obrigatório
-   

@@ -4,3 +4,5 @@ Resource    serverestDev/cadastrar_usuario/cadastrar_usuario.resource
 Resource    serverestDev/home/home_steps.resource
 Resource    serverestDev/listar_usuarios/listar_usuarios_steps.resource
 Resource    serverestDev/login/login_steps.resource
+
+Resource    ../resources/serverestDev/signup/signup.resource

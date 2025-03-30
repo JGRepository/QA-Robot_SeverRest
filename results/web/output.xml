@@ -1,0 +1,2631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.4 on win32)" generated="2025-03-30T16:27:00.154465" rpa="false" schemaversion="5">
+<suite id="s1" name="E2E" source="C:\GitHub\QA-Robot_SeverRest\tests\serverestDev\e2e">
+<suite id="s1-s1" name="Tests E2E" source="C:\GitHub\QA-Robot_SeverRest\tests\serverestDev\e2e\tests_e2e.robot">
+<test id="s1-s1-t1" name="Verifica o cadastro de usuários na area logada" line="11">
+<kw name="eu acesso o site" owner="commons" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:00.786986" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
+<arg>${URL_serverestDev}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-30T16:27:00.786986" elapsed="3.858232"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:00.785983" elapsed="3.860235"/>
+</kw>
+<kw name="Configurar usuário antes do inicio dos testes" owner="cadastro_usuario_api_steps">
+<kw name="Enviar Requisição GET de Lista de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:04.647441" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:04.647441" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:04.648723" level="INFO">${EMAIL} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${EMAIL}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:04.647441" elapsed="0.001282"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:04.648723" level="INFO">${PARAMS} = {'email': 'robot@example.com'}</msg>
+<var>${PARAMS}</var>
+<arg>email=${EMAIL}[email]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:04.648723" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.002386" level="INFO">GET Request : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ path_url=/usuarios?email=robot%40example.com 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:05.002386" level="INFO">GET Response : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'e2f22b3555caa6c808878f8a3238715c', 'date': 'Sun, 30 Mar 2025 19:27:05 GMT', 'server': 'Google Frontend', 'Content-Length': '43'} 
+ body={
+    "quantidade": 0,
+    "usuarios": []
+} 
+ </msg>
+<msg time="2025-03-30T16:27:05.002386" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>params=${PARAMS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2025-03-30T16:27:04.648723" elapsed="0.353663"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.006504" level="INFO">{'quantidade': 0, 'usuarios': []}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.004494" elapsed="0.002010"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.008447" level="INFO">${JSON_CONTENT} = {'quantidade': 0, 'usuarios': []}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.006504" elapsed="0.001943"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.010662" level="INFO">${JSON_QUANTIDADE} = 0</msg>
+<var>${JSON_QUANTIDADE}</var>
+<arg>${response.json()}[quantidade]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.008447" elapsed="0.002215"/>
+</kw>
+<if>
+<branch type="IF" condition="${JSON_QUANTIDADE} != 0">
+<kw name="Get From Dictionary" owner="Collections">
+<var>${USUARIOS}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>usuarios</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.010662" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ID_USUARIO}</var>
+<arg>${USUARIOS[0]}</arg>
+<arg>_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.010662" elapsed="0.001590"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:05.012252" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:05.010662" elapsed="0.001590"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Não tem usuários cadastrados</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.012252" elapsed="0.001055"/>
+</kw>
+<return>
+<value>teste</value>
+<status status="PASS" start="2025-03-30T16:27:05.013307" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:05.012252" elapsed="0.001055"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:05.010662" elapsed="0.002645"/>
+</if>
+<msg time="2025-03-30T16:27:05.013307" level="INFO">${ID_ANTIGO} = teste</msg>
+<var>${ID_ANTIGO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:04.646218" elapsed="0.367089"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.014872" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:05.014872" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.397127" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/teste 
+ path_url=/usuarios/teste 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:05.397127" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/teste 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'ca4940b11d38417ad6ebe117c832008f', 'date': 'Sun, 30 Mar 2025 19:27:05 GMT', 'server': 'Google Frontend', 'Content-Length': '46'} 
+ body={
+    "message": "Nenhum registro excluído"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:05.397127" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.015965" elapsed="0.381162"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.397127" level="INFO">{'message': 'Nenhum registro excluído'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.397127" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">${JSON_CONTENT} = {'message': 'Nenhum registro excluído'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.397127" elapsed="0.005251"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">${JSON_MESSAGE} = Nenhum registro excluído</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="NOT RUN" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">Nenhum registro excluído</msg>
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</if>
+<arg>${ID_ANTIGO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:05.014872" elapsed="0.387506"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.402378" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.744456" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:05.744456" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'bddb02f45d405f9bed6622548eda0ea1', 'date': 'Sun, 30 Mar 2025 19:27:06 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "LOY2McNrhefZQfcz"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:05.745752" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.343374"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.746792" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'LOY2McNrhefZQfcz'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.745752" elapsed="0.001040"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.746792" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'LOY2McNrhefZQfcz'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.746792" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.748001" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.748001" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.748001" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.748001" elapsed="0.001006"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:05.750017" level="INFO">${ID_USUARIO} = LOY2McNrhefZQfcz</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.749007" elapsed="0.001010"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:05.750017" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:05.748001" elapsed="0.002016"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.750017" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:05.751022" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:05.750017" elapsed="0.001005"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:05.751022" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:05.751022" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:05.748001" elapsed="0.003021"/>
+</if>
+<msg time="2025-03-30T16:27:05.751022" level="INFO">${ID_NOVO} = LOY2McNrhefZQfcz</msg>
+<var>${ID_NOVO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:05.402378" elapsed="0.348644"/>
+</kw>
+<kw name="Enviar Requisição PUT de Alteração de Usuário alternando o NOME" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:05.751022" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:05.751022" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:05.752531" level="INFO">${payload} = {'nome': 'ROBOT_ATUALIZAR', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'false'}</msg>
+<var>${payload}</var>
+<arg>${ATUALIZAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.751022" elapsed="0.001509"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:05.752531" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.752531" elapsed="0.000000"/>
+</kw>
+<kw name="PUT" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:06.078719" level="INFO">PUT Request : url=https://serverest.dev/usuarios/LOY2McNrhefZQfcz 
+ path_url=/usuarios/LOY2McNrhefZQfcz 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body=b'{"nome": "ROBOT_ATUALIZAR", "email": "robot@example.com", "password": "senharobot", "administrador": "false"}' 
+ </msg>
+<msg time="2025-03-30T16:27:06.078719" level="INFO">PUT Response : url=https://serverest.dev/usuarios/LOY2McNrhefZQfcz 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '6df8a2b155c37800cff6a03493742d42', 'date': 'Sun, 30 Mar 2025 19:27:06 GMT', 'server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:06.078719" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2025-03-30T16:27:05.752531" elapsed="0.326188"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.080923" level="INFO">{'message': 'Registro alterado com sucesso'}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.079824" elapsed="0.001099"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Registro alterado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.080923" elapsed="0.001599"/>
+</kw>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2025-03-30T16:27:06.082522" elapsed="0.001044"/>
+</return>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição PUT de Alteração de Usuário alternando o NOME</doc>
+<status status="PASS" start="2025-03-30T16:27:05.751022" elapsed="0.334126"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:06.086147" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:06.086147" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:06.427833" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/LOY2McNrhefZQfcz 
+ path_url=/usuarios/LOY2McNrhefZQfcz 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:06.427833" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/LOY2McNrhefZQfcz 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '5999355f13a9e6d231252689073918cb', 'date': 'Sun, 30 Mar 2025 19:27:06 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:06.427833" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.087147" elapsed="0.340686"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.428833" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.427833" elapsed="0.001000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.429833" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.428833" elapsed="0.001000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.429833" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.429833" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.430833" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:06.429833" elapsed="0.001000"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:06.430833" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:06.429833" elapsed="0.001000"/>
+</if>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:06.085148" elapsed="0.345685"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:04.646218" elapsed="1.786120"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:06.432338" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:06.432338" elapsed="0.001258"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:06.433596" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.433596" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.433596" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.433596" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:06.769584" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:06.769584" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '83f5b17236682437c65547227daff283', 'date': 'Sun, 30 Mar 2025 19:27:07 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "qWFCLYoaexTt4ulj"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:06.769584" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.433596" elapsed="0.335988"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.773815" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'qWFCLYoaexTt4ulj'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.770584" elapsed="0.003231"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.775847" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'qWFCLYoaexTt4ulj'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.773815" elapsed="0.002032"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.776859" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.775847" elapsed="0.001012"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:06.778079" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.778079" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:06.778079" level="INFO">${ID_USUARIO} = qWFCLYoaexTt4ulj</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.778079" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:06.778079" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:06.776859" elapsed="0.001220"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:06.779091" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:06.779091" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:06.779091" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:06.779091" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:06.779091" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:06.776859" elapsed="0.002232"/>
+</if>
+<msg time="2025-03-30T16:27:06.780101" level="INFO">${ID} = qWFCLYoaexTt4ulj</msg>
+<var>${ID}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:06.432338" elapsed="0.347763"/>
+</kw>
+<kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.780467" elapsed="0.021970"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:06.802437" level="INFO">Typing text 'robot@example.com' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.802437" elapsed="0.103924"/>
+</kw>
+<arg>${EMAIL_CASDASTRADO}</arg>
+<status status="PASS" start="2025-03-30T16:27:06.780467" elapsed="0.125894"/>
+</kw>
+<kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.906864" elapsed="0.018121"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:06.924985" level="INFO">Typing text 'senharobot' into text field 'css=[data-testid="senha"]'.</msg>
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:06.924985" elapsed="0.087215"/>
+</kw>
+<arg>${SENHA_CASDASTRADA}</arg>
+<status status="PASS" start="2025-03-30T16:27:06.906864" elapsed="0.105336"/>
+</kw>
+<kw name="And eu clique no botão ENTRAR" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:07.013222" elapsed="0.014430"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:07.027652" level="INFO">Clicking button 'css=[data-testid="entrar"]'.</msg>
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:07.027652" elapsed="0.066463"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:07.012200" elapsed="0.081915"/>
+</kw>
+<kw name="And eu clico no item de MENU" owner="home_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:07.095326" elapsed="1.066154"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.161480" level="INFO">Clicking element 'css=[data-testid="cadastrar-usuarios"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.161480" elapsed="0.039419"/>
+</kw>
+<arg>CADASTRAR USUARIO</arg>
+<arg>${HOME.MENU_CADASTRAR_USUARIOS.BTN}</arg>
+<status status="PASS" start="2025-03-30T16:27:07.094115" elapsed="1.106784"/>
+</kw>
+<kw name="When eu preencho o campo NOME" owner="commons">
+<kw name="First Name" owner="FakerLibrary">
+<msg time="2025-03-30T16:27:08.202407" level="INFO">${NOME_FAKER} = Shawn</msg>
+<var>${NOME_FAKER}</var>
+<status status="PASS" start="2025-03-30T16:27:08.202407" elapsed="0.000000"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:08.203723" level="INFO">${NOME_FAKER} = Shawn</msg>
+<arg>${NOME_FAKER}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.203723" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.203723" elapsed="0.012995"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.217774" level="INFO">Typing text 'QATEST_Shawn' into text field 'css=[data-testid="nome"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${PREFIXO_NOME_USUARIO}${NOME_FAKER}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.217774" elapsed="0.080574"/>
+</kw>
+<return>
+<status status="PASS" start="2025-03-30T16:27:08.298348" elapsed="0.000000"/>
+</return>
+<arg>${CAD_USUARIO.NOME.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.202407" elapsed="0.095941"/>
+</kw>
+<kw name="And eu preencho o campo EMAIL" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.300488" elapsed="0.012882"/>
+</kw>
+<kw name="User Id Generator" owner="user_id_generator">
+<msg time="2025-03-30T16:27:08.314404" level="INFO">${USER_ID} = Shawnd42059e3-53b1</msg>
+<var>${USER_ID}</var>
+<arg>${NOME_FAKER}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.314404" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.315625" level="INFO">Typing text 'Shawnd42059e3-53b1@qateste.com.br' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${USER_ID}@qateste.com.br</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.314404" elapsed="0.177569"/>
+</kw>
+<return>
+<value>${USER_ID}@qateste.com.br</value>
+<status status="PASS" start="2025-03-30T16:27:08.491973" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-30T16:27:08.491973" level="INFO">${EMAIL} = Shawnd42059e3-53b1@qateste.com.br</msg>
+<var>${EMAIL}</var>
+<arg>${CAD_USUARIO.EMAIL.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.299982" elapsed="0.191991"/>
+</kw>
+<kw name="And eu preencho o campo SENHA" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.493220" elapsed="0.012436"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.507025" level="INFO">Typing text 'teste' into text field 'css=[data-testid="password"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>teste</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.505656" elapsed="0.101873"/>
+</kw>
+<arg>${CAD_USUARIO.SENHA.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.491973" elapsed="0.116578"/>
+</kw>
+<kw name="And eu marco o checkbox de administrador" owner="commons">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.608830" level="INFO">Clicking element 'css=[data-testid="checkbox"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.608830" elapsed="0.085555"/>
+</kw>
+<arg>${CAD_USUARIO.ADMIN.CHECKBOX}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.608830" elapsed="0.086687"/>
+</kw>
+<kw name="And eu clico no botão CADASTRAR" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.695517" elapsed="0.015563"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:08.711080" level="INFO">Clicking element 'css=[data-testid="cadastrarUsuario"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.711080" elapsed="0.043377"/>
+</kw>
+<arg>${CAD_USUARIO.CADASTRAR.BTN}</arg>
+<status status="PASS" start="2025-03-30T16:27:08.695517" elapsed="0.058940"/>
+</kw>
+<kw name="Then sou redirecionado para a tela LISTAR USUARIOS" owner="listar_usuarios_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LIST_USUARIO.TEXTO_APRESENTACAO.H1}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:08.755462" elapsed="0.641748"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:09.414212" level="INFO">${text} = Lista dos usuários</msg>
+<var>${text}</var>
+<arg>${LIST_USUARIO.TEXTO_APRESENTACAO.H1}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.397210" elapsed="0.017002"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${text}</arg>
+<arg>Lista dos usuários</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.414212" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:08.754457" elapsed="0.659755"/>
+</kw>
+<kw name="And meu usuário foi cadastrado com sucesso" owner="listar_usuarios_steps">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:09.415247" level="INFO">${ELEMENT} = //td[contains(.,'Shawnd42059e3-53b1@qateste.com.br')]</msg>
+<var>${ELEMENT}</var>
+<arg>//td[contains(.,'${EMAIL}')]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.415247" elapsed="0.000000"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${ELEMENT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.415247" elapsed="0.249126"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:09.673387" level="INFO">${TEXTO} = Shawnd42059e3-53b1@qateste.com.br</msg>
+<var>${TEXTO}</var>
+<arg>${ELEMENT}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.665510" elapsed="0.007877"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${TEXTO}</arg>
+<arg>${EMAIL}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.674887" elapsed="0.000000"/>
+</kw>
+<arg>${EMAIL}</arg>
+<status status="PASS" start="2025-03-30T16:27:09.415247" elapsed="0.259640"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:09.675920" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:09.674887" elapsed="0.001033"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:10.041255" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/qWFCLYoaexTt4ulj 
+ path_url=/usuarios/qWFCLYoaexTt4ulj 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:10.041255" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/qWFCLYoaexTt4ulj 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '43a831124edbecc041d0899950595f84', 'date': 'Sun, 30 Mar 2025 19:27:10 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:10.042353" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:09.675920" elapsed="0.366433"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:10.044555" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:10.042353" elapsed="0.002202"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:10.045652" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:10.044555" elapsed="0.001097"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:10.048055" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:10.046869" elapsed="0.001186"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:10.049162" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:10.049162" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:10.049162" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:10.048055" elapsed="0.001107"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:10.050255" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:10.050255" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:10.049162" elapsed="0.001093"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:10.050255" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:10.050255" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:10.048055" elapsed="0.002200"/>
+</if>
+<arg>${ID}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:09.674887" elapsed="0.376464"/>
+</kw>
+<kw name="fechar Browser" owner="commons" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-03-30T16:27:10.052277" elapsed="2.190270"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:10.051351" elapsed="2.191196"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:00.785178" elapsed="11.459401"/>
+</test>
+<test id="s1-s1-t2" name="Verifica o cadastro de produtos na area logada" line="30">
+<kw name="eu acesso o site" owner="commons" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:12.270025" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
+<arg>${URL_serverestDev}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-30T16:27:12.270025" elapsed="2.460431"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:12.270025" elapsed="2.461938"/>
+</kw>
+<kw name="Configurar usuário antes do inicio dos testes" owner="cadastro_usuario_api_steps">
+<kw name="Enviar Requisição GET de Lista de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:14.734981" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:14.733977" elapsed="0.001004"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:14.735981" level="INFO">${EMAIL} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${EMAIL}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:14.734981" elapsed="0.001000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:14.735981" level="INFO">${PARAMS} = {'email': 'robot@example.com'}</msg>
+<var>${PARAMS}</var>
+<arg>email=${EMAIL}[email]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:14.735981" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.072296" level="INFO">GET Request : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ path_url=/usuarios?email=robot%40example.com 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:15.072296" level="INFO">GET Response : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '966902fe0d01d2677e5a4896dedb59cc', 'date': 'Sun, 30 Mar 2025 19:27:15 GMT', 'server': 'Google Frontend', 'Content-Length': '43'} 
+ body={
+    "quantidade": 0,
+    "usuarios": []
+} 
+ </msg>
+<msg time="2025-03-30T16:27:15.073350" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>params=${PARAMS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2025-03-30T16:27:14.735981" elapsed="0.337369"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.074448" level="INFO">{'quantidade': 0, 'usuarios': []}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.073350" elapsed="0.001098"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.077402" level="INFO">${JSON_CONTENT} = {'quantidade': 0, 'usuarios': []}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.075864" elapsed="0.001538"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.078503" level="INFO">${JSON_QUANTIDADE} = 0</msg>
+<var>${JSON_QUANTIDADE}</var>
+<arg>${response.json()}[quantidade]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.077402" elapsed="0.001101"/>
+</kw>
+<if>
+<branch type="IF" condition="${JSON_QUANTIDADE} != 0">
+<kw name="Get From Dictionary" owner="Collections">
+<var>${USUARIOS}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>usuarios</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.078503" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ID_USUARIO}</var>
+<arg>${USUARIOS[0]}</arg>
+<arg>_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.078503" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:15.078503" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:15.078503" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Não tem usuários cadastrados</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.079595" elapsed="0.000613"/>
+</kw>
+<return>
+<value>teste</value>
+<status status="PASS" start="2025-03-30T16:27:15.080208" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:15.079595" elapsed="0.000613"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:15.078503" elapsed="0.001705"/>
+</if>
+<msg time="2025-03-30T16:27:15.080208" level="INFO">${ID_ANTIGO} = teste</msg>
+<var>${ID_ANTIGO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:14.733977" elapsed="0.346231"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.080715" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:15.080715" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.442277" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/teste 
+ path_url=/usuarios/teste 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:15.442277" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/teste 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '7d3728b9b2d17d0deec2d05d197261c0', 'date': 'Sun, 30 Mar 2025 19:27:15 GMT', 'server': 'Google Frontend', 'Content-Length': '46'} 
+ body={
+    "message": "Nenhum registro excluído"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:15.443404" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.080715" elapsed="0.362689"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.445660" level="INFO">{'message': 'Nenhum registro excluído'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.443404" elapsed="0.002256"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.447777" level="INFO">${JSON_CONTENT} = {'message': 'Nenhum registro excluído'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.445660" elapsed="0.002117"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.448793" level="INFO">${JSON_MESSAGE} = Nenhum registro excluído</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.447777" elapsed="0.001016"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.449894" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="NOT RUN" start="2025-03-30T16:27:15.449894" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:15.449894" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.450902" level="INFO">Nenhum registro excluído</msg>
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.450902" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="PASS" start="2025-03-30T16:27:15.450902" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:15.449894" elapsed="0.001008"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.450902" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:15.450902" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:15.448793" elapsed="0.002109"/>
+</if>
+<arg>${ID_ANTIGO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:15.080715" elapsed="0.370187"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.452411" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:15.452411" elapsed="0.001449"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:15.454870" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.453860" elapsed="0.001010"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.454870" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.454870" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.792155" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:15.792693" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '43378e5b8718524d6a4c0d7c849d152c', 'date': 'Sun, 30 Mar 2025 19:27:16 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "yPlZBpfFUlLVcsQs"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:15.793923" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.454870" elapsed="0.339053"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.794933" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'yPlZBpfFUlLVcsQs'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.793923" elapsed="0.002180"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.797403" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'yPlZBpfFUlLVcsQs'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.796103" elapsed="0.001300"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.799615" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.798599" elapsed="0.001016"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.800632" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.800632" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:15.802145" level="INFO">${ID_USUARIO} = yPlZBpfFUlLVcsQs</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.800632" elapsed="0.001513"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:15.802145" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:15.800632" elapsed="0.001513"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.802145" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:15.802145" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:15.802145" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:15.803278" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:15.803278" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:15.800632" elapsed="0.002646"/>
+</if>
+<msg time="2025-03-30T16:27:15.803278" level="INFO">${ID_NOVO} = yPlZBpfFUlLVcsQs</msg>
+<var>${ID_NOVO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:15.452411" elapsed="0.350867"/>
+</kw>
+<kw name="Enviar Requisição PUT de Alteração de Usuário alternando o NOME" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:15.804291" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:15.804291" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:15.805303" level="INFO">${payload} = {'nome': 'ROBOT_ATUALIZAR', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'false'}</msg>
+<var>${payload}</var>
+<arg>${ATUALIZAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.804291" elapsed="0.001012"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:15.805303" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.805303" elapsed="0.000000"/>
+</kw>
+<kw name="PUT" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:16.138619" level="INFO">PUT Request : url=https://serverest.dev/usuarios/yPlZBpfFUlLVcsQs 
+ path_url=/usuarios/yPlZBpfFUlLVcsQs 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body=b'{"nome": "ROBOT_ATUALIZAR", "email": "robot@example.com", "password": "senharobot", "administrador": "false"}' 
+ </msg>
+<msg time="2025-03-30T16:27:16.138619" level="INFO">PUT Response : url=https://serverest.dev/usuarios/yPlZBpfFUlLVcsQs 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'ba131c47a172292d62ca9bc3ec5dea4c', 'date': 'Sun, 30 Mar 2025 19:27:16 GMT', 'server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:16.138619" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2025-03-30T16:27:15.805303" elapsed="0.333316"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.139619" level="INFO">{'message': 'Registro alterado com sucesso'}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.139619" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Registro alterado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.140619" elapsed="0.000643"/>
+</kw>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2025-03-30T16:27:16.142269" elapsed="0.000000"/>
+</return>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição PUT de Alteração de Usuário alternando o NOME</doc>
+<status status="PASS" start="2025-03-30T16:27:15.803278" elapsed="0.338991"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:16.143735" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:16.143735" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:16.493917" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/yPlZBpfFUlLVcsQs 
+ path_url=/usuarios/yPlZBpfFUlLVcsQs 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:16.493917" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/yPlZBpfFUlLVcsQs 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '8b342ac7e01ad79ec19b94a0cac399c9', 'date': 'Sun, 30 Mar 2025 19:27:17 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:16.495012" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.143735" elapsed="0.351277"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.497210" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.495012" elapsed="0.002198"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.499413" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.497210" elapsed="0.002203"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.500515" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.499413" elapsed="0.001102"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.502203" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.501610" elapsed="0.000593"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:16.502203" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:16.501610" elapsed="0.000593"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:16.502203" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:16.502203" elapsed="0.001058"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:16.502203" elapsed="0.001058"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:16.503261" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:16.503261" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:16.501610" elapsed="0.001651"/>
+</if>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:16.142269" elapsed="0.360992"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:14.732977" elapsed="1.770284"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:16.504274" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:16.504274" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:16.505365" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.504274" elapsed="0.001091"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.505365" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.505365" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:16.862166" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:16.862166" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '07d5bf89ebed5461a9d8a12036f222e5', 'date': 'Sun, 30 Mar 2025 19:27:17 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "oIBZW3rPyxIwv2Cm"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:16.863212" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.505365" elapsed="0.357847"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.865399" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'oIBZW3rPyxIwv2Cm'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.863212" elapsed="0.002187"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.867585" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'oIBZW3rPyxIwv2Cm'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.865399" elapsed="0.002186"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.868678" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.867585" elapsed="0.001093"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:16.869776" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.869776" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:16.870877" level="INFO">${ID_USUARIO} = oIBZW3rPyxIwv2Cm</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.870877" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:16.870877" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:16.868678" elapsed="0.002199"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:16.870877" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:16.870877" elapsed="0.001595"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:16.870877" elapsed="0.001595"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:16.872472" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:16.872472" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:16.868678" elapsed="0.003794"/>
+</if>
+<msg time="2025-03-30T16:27:16.872472" level="INFO">${ID} = oIBZW3rPyxIwv2Cm</msg>
+<var>${ID}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:16.504274" elapsed="0.368198"/>
+</kw>
+<kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:16.873933" elapsed="0.175357"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:17.049290" level="INFO">Typing text 'robot@example.com' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${LOGIN.EMAIL.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.049290" elapsed="0.181561"/>
+</kw>
+<arg>${EMAIL_CASDASTRADO}</arg>
+<status status="PASS" start="2025-03-30T16:27:16.872472" elapsed="0.358379"/>
+</kw>
+<kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.232359" elapsed="0.014047"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:17.246406" level="INFO">Typing text 'senharobot' into text field 'css=[data-testid="senha"]'.</msg>
+<arg>${LOGIN.SENHA.INPUT}</arg>
+<arg>${value}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.246406" elapsed="0.066060"/>
+</kw>
+<arg>${SENHA_CASDASTRADA}</arg>
+<status status="PASS" start="2025-03-30T16:27:17.232359" elapsed="0.080107"/>
+</kw>
+<kw name="And eu clique no botão ENTRAR" owner="login_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.313954" elapsed="0.011837"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:17.325791" level="INFO">Clicking button 'css=[data-testid="entrar"]'.</msg>
+<arg>${LOGIN.ENTRAR.BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.325791" elapsed="0.054705"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:17.313954" elapsed="0.066542"/>
+</kw>
+<kw name="And eu clico no item de MENU" owner="home_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:17.380496" elapsed="1.057692"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:18.439498" level="INFO">Clicking element 'css=[data-testid="cadastrar-produtos"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.439498" elapsed="0.041106"/>
+</kw>
+<arg>CADASTRAR PRODUTO</arg>
+<arg>${HOME.MENU_CADASTRAR_PRODUTOS.BTN}</arg>
+<status status="PASS" start="2025-03-30T16:27:17.380496" elapsed="1.100108"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.482112" elapsed="0.015414"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:18.497526" level="INFO">Typing text 'QA_PRODUTO_LIVRO' into text field 'css=[data-testid="nome"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.497526" elapsed="0.254629"/>
+</kw>
+<arg>NOME</arg>
+<arg>${CAD_PRODUTO.NOME.INPUT}</arg>
+<arg>${NOME_PRODUTO}</arg>
+<status status="PASS" start="2025-03-30T16:27:18.482112" elapsed="0.270043"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.753172" elapsed="0.013894"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:18.768087" level="INFO">Typing text '12345' into text field 'css=[data-testid="preco"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.768087" elapsed="0.067333"/>
+</kw>
+<arg>PREÇO</arg>
+<arg>${CAD_PRODUTO.PRECO.INPUT}</arg>
+<arg>${PRECO_PRODUTO}</arg>
+<status status="PASS" start="2025-03-30T16:27:18.752155" elapsed="0.083265"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.836450" elapsed="0.012134"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:18.849596" level="INFO">Typing text 'QA_PRODUTO_LIVRO_DESCRIÇÃO' into text field 'css=[data-testid="descricao"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.848584" elapsed="0.109158"/>
+</kw>
+<arg>DRESCRIÇÃO</arg>
+<arg>${CAD_PRODUTO.DESCRICAO.INPUT}</arg>
+<arg>${DESCRICAO_PRODUTO}</arg>
+<status status="PASS" start="2025-03-30T16:27:18.836450" elapsed="0.121292"/>
+</kw>
+<kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.957742" elapsed="0.011810"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:18.969552" level="INFO">Typing text '100' into text field 'css=[data-testid="quantity"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${TEXTO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:18.969552" elapsed="0.057696"/>
+</kw>
+<arg>QUANTIDADE</arg>
+<arg>${CAD_PRODUTO.QUANTIDADE.INPUT}</arg>
+<arg>${QUANTIDADE_PRODUTO}</arg>
+<status status="PASS" start="2025-03-30T16:27:18.957742" elapsed="0.069506"/>
+</kw>
+<kw name="And eu insiro uma imagem do produto" owner="cadastrar_produto_steps">
+<kw name="Choose File" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:19.028552" level="INFO">Sending C:\GitHub\QA-Robot_SeverRest\resources\serverestDev\assets\casdastro_produto_livro_teste.webp to browser.</msg>
+<arg>${CAD_PRODUTO.IMAGEM.INPUT}</arg>
+<arg>${IMAGEM_PATH}</arg>
+<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.027248" elapsed="0.022163"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:19.027248" elapsed="0.022163"/>
+</kw>
+<kw name="When eu clico no botão CADASTRAR" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.049411" elapsed="0.015019"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:19.065907" level="INFO">Clicking element 'css=[data-testid="cadastarProdutos"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.065907" elapsed="0.070678"/>
+</kw>
+<arg>${CAD_PRODUTO.CADASTRAR.BTN}</arg>
+<status status="PASS" start="2025-03-30T16:27:19.049411" elapsed="0.087174"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:19.137698" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:19.137698" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:19.489377" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/oIBZW3rPyxIwv2Cm 
+ path_url=/usuarios/oIBZW3rPyxIwv2Cm 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:19.489377" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/oIBZW3rPyxIwv2Cm 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '9031dab0987feece6bd070f0661c8441', 'date': 'Sun, 30 Mar 2025 19:27:20 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:19.490378" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.137698" elapsed="0.352680"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:19.491377" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.490378" elapsed="0.000999"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:19.492377" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.491377" elapsed="0.001000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:19.492882" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.492377" elapsed="0.000505"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:19.492882" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.492882" elapsed="0.001002"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:19.492882" elapsed="0.001002"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:19.493884" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:19.492882" elapsed="0.001002"/>
+</if>
+<arg>${ID}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:19.136585" elapsed="0.357299"/>
+</kw>
+<kw name="fechar Browser" owner="commons" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-03-30T16:27:19.495162" elapsed="2.200950"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:19.493884" elapsed="2.202228"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:12.269375" elapsed="9.426737"/>
+</test>
+<test id="s1-s1-t3" name="Verificar o cadastro de usuários via SIGNUP" line="47">
+<kw name="eu acesso o site" owner="commons" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:21.699543" level="INFO">Opening browser 'chrome' to base url 'https://front.serverest.dev/'.</msg>
+<arg>${URL_serverestDev}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-30T16:27:21.699543" elapsed="3.616775"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:21.698447" elapsed="3.617871"/>
+</kw>
+<kw name="Configurar usuário antes do inicio dos testes" owner="cadastro_usuario_api_steps">
+<kw name="Enviar Requisição GET de Lista de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:25.318318" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:25.318318" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:25.319317" level="INFO">${EMAIL} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${EMAIL}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.318318" elapsed="0.000999"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:25.319317" level="INFO">${PARAMS} = {'email': 'robot@example.com'}</msg>
+<var>${PARAMS}</var>
+<arg>email=${EMAIL}[email]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.319317" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:25.664245" level="INFO">GET Request : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ path_url=/usuarios?email=robot%40example.com 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:25.664245" level="INFO">GET Response : url=https://serverest.dev/usuarios?email=robot%40example.com 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'c971bbe5ae1074df0259498c3ba879ab;o=1', 'date': 'Sun, 30 Mar 2025 19:27:26 GMT', 'server': 'Google Frontend', 'Content-Length': '43'} 
+ body={
+    "quantidade": 0,
+    "usuarios": []
+} 
+ </msg>
+<msg time="2025-03-30T16:27:25.664245" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>params=${PARAMS}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.320317" elapsed="0.343928"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:25.666473" level="INFO">{'quantidade': 0, 'usuarios': []}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.665360" elapsed="0.001113"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:25.668067" level="INFO">${JSON_CONTENT} = {'quantidade': 0, 'usuarios': []}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.667473" elapsed="0.002076"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:25.670903" level="INFO">${JSON_QUANTIDADE} = 0</msg>
+<var>${JSON_QUANTIDADE}</var>
+<arg>${response.json()}[quantidade]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.669549" elapsed="0.001354"/>
+</kw>
+<if>
+<branch type="IF" condition="${JSON_QUANTIDADE} != 0">
+<kw name="Get From Dictionary" owner="Collections">
+<var>${USUARIOS}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>usuarios</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:25.670903" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ID_USUARIO}</var>
+<arg>${USUARIOS[0]}</arg>
+<arg>_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:25.672492" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:25.672492" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:25.670903" elapsed="0.001589"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Não tem usuários cadastrados</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.672492" elapsed="0.001226"/>
+</kw>
+<return>
+<value>teste</value>
+<status status="PASS" start="2025-03-30T16:27:25.673718" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:25.672492" elapsed="0.001226"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:25.670903" elapsed="0.002815"/>
+</if>
+<msg time="2025-03-30T16:27:25.673718" level="INFO">${ID_ANTIGO} = teste</msg>
+<var>${ID_ANTIGO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:25.317317" elapsed="0.356401"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:25.674730" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:25.674730" elapsed="0.001001"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.039717" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/teste 
+ path_url=/usuarios/teste 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:26.039717" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/teste 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '34a536973584d5fa946e50997bb732de', 'date': 'Sun, 30 Mar 2025 19:27:26 GMT', 'server': 'Google Frontend', 'Content-Length': '46'} 
+ body={
+    "message": "Nenhum registro excluído"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:26.039717" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:25.675731" elapsed="0.363986"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.042400" level="INFO">{'message': 'Nenhum registro excluído'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.040810" elapsed="0.001590"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.044622" level="INFO">${JSON_CONTENT} = {'message': 'Nenhum registro excluído'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.042400" elapsed="0.002222"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.045939" level="INFO">${JSON_MESSAGE} = Nenhum registro excluído</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.044622" elapsed="0.001317"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:26.047035" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="NOT RUN" start="2025-03-30T16:27:26.047035" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:26.047035" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.048315" level="INFO">Nenhum registro excluído</msg>
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.048315" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="PASS" start="2025-03-30T16:27:26.048315" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:26.047035" elapsed="0.001280"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:26.048315" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:26.048315" elapsed="0.001096"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:26.047035" elapsed="0.002376"/>
+</if>
+<arg>${ID_ANTIGO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:25.674730" elapsed="0.374681"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.050506" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:26.050506" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:26.052189" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.051597" elapsed="0.000592"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.053244" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.052189" elapsed="0.001055"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.388464" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:26.388464" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'ed7897d3624be5b99b656787e8286d2d', 'date': 'Sun, 30 Mar 2025 19:27:26 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "N6F3qfYcOMVaYQQt"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:26.388464" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.053244" elapsed="0.335220"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.390638" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'N6F3qfYcOMVaYQQt'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.389544" elapsed="0.001094"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.392230" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'N6F3qfYcOMVaYQQt'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.390638" elapsed="0.001592"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.394374" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.393278" elapsed="0.001096"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.395522" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.394374" elapsed="0.001148"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:26.395522" level="INFO">${ID_USUARIO} = N6F3qfYcOMVaYQQt</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.395522" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:26.395522" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:26.394374" elapsed="0.001148"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:26.396865" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:26.396865" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:26.395522" elapsed="0.001343"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:26.396865" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:26.396865" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:26.394374" elapsed="0.002491"/>
+</if>
+<msg time="2025-03-30T16:27:26.398100" level="INFO">${ID_NOVO} = N6F3qfYcOMVaYQQt</msg>
+<var>${ID_NOVO}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:26.049411" elapsed="0.348689"/>
+</kw>
+<kw name="Enviar Requisição PUT de Alteração de Usuário alternando o NOME" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.398100" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:26.398100" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:26.399120" level="INFO">${payload} = {'nome': 'ROBOT_ATUALIZAR', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'false'}</msg>
+<var>${payload}</var>
+<arg>${ATUALIZAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.399120" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.400139" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.400139" elapsed="0.000000"/>
+</kw>
+<kw name="PUT" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.736217" level="INFO">PUT Request : url=https://serverest.dev/usuarios/N6F3qfYcOMVaYQQt 
+ path_url=/usuarios/N6F3qfYcOMVaYQQt 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body=b'{"nome": "ROBOT_ATUALIZAR", "email": "robot@example.com", "password": "senharobot", "administrador": "false"}' 
+ </msg>
+<msg time="2025-03-30T16:27:26.736217" level="INFO">PUT Response : url=https://serverest.dev/usuarios/N6F3qfYcOMVaYQQt 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'e597a876cfecea050e65fd3c92fce87e', 'date': 'Sun, 30 Mar 2025 19:27:27 GMT', 'server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:26.736217" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.400139" elapsed="0.336078"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:26.738351" level="INFO">{'message': 'Registro alterado com sucesso'}</msg>
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.737326" elapsed="0.001025"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${RESPONSE.json()}[message]</arg>
+<arg>Registro alterado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.738351" elapsed="0.001000"/>
+</kw>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2025-03-30T16:27:26.739351" elapsed="0.000000"/>
+</return>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição PUT de Alteração de Usuário alternando o NOME</doc>
+<status status="PASS" start="2025-03-30T16:27:26.398100" elapsed="0.342399"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:26.740499" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:26.740499" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:27.087384" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/N6F3qfYcOMVaYQQt 
+ path_url=/usuarios/N6F3qfYcOMVaYQQt 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:27.087384" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/N6F3qfYcOMVaYQQt 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'c1bac97ead9abfd2e575c8d5e5120382', 'date': 'Sun, 30 Mar 2025 19:27:27 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:27.087384" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:26.741588" elapsed="0.345796"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.089388" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.088390" elapsed="0.001998"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.091388" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.090388" elapsed="0.001000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.093900" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.092389" elapsed="0.001511"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.093900" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.093900" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:27.093900" elapsed="0.001003"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:27.093900" elapsed="0.001003"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:27.094903" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:27.094903" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:27.094903" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:27.094903" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:27.094903" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:27.093900" elapsed="0.002204"/>
+</if>
+<arg>${ID_NOVO}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:26.740499" elapsed="0.355605"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:25.317317" elapsed="1.778787"/>
+</kw>
+<kw name="Enviar Requisição POST de Criação de Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:27.097279" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:27.097279" elapsed="0.000000"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-03-30T16:27:27.097279" level="INFO">${payload} = {'nome': 'ROBOT', 'email': 'robot@example.com', 'password': 'senharobot', 'administrador': 'true'}</msg>
+<var>${payload}</var>
+<arg>${CRIAR_USUARIO.JSON}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.097279" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.098425" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.097279" elapsed="0.001146"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:27.445503" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '98'} 
+ body=b'{"nome": "ROBOT", "email": "robot@example.com", "password": "senharobot", "administrador": "true"}' 
+ </msg>
+<msg time="2025-03-30T16:27:27.446934" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'e04b45b0c6a5376589425caab7f3033d', 'date': 'Sun, 30 Mar 2025 19:27:27 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "wuMtif6RM9hA0UnY"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:27.446934" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=anything</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.098425" elapsed="0.348509"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.449091" level="INFO">{'message': 'Cadastro realizado com sucesso', '_id': 'wuMtif6RM9hA0UnY'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.446934" elapsed="0.002157"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.451163" level="INFO">${JSON_CONTENT} = {'message': 'Cadastro realizado com sucesso', '_id': 'wuMtif6RM9hA0UnY'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${RESPONSE.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.449091" elapsed="0.002072"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.452854" level="INFO">${JSON_MESSAGE} = Cadastro realizado com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.451163" elapsed="0.001691"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Cadastro realizado com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.453954" level="INFO">Cadastro realizado com sucesso</msg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.453954" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-03-30T16:27:27.455048" level="INFO">${ID_USUARIO} = wuMtif6RM9hA0UnY</msg>
+<var>${ID_USUARIO}</var>
+<arg>${JSON_CONTENT}</arg>
+<arg>_id</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.455048" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ID_USUARIO}</value>
+<status status="PASS" start="2025-03-30T16:27:27.455048" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:27.453954" elapsed="0.001094"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Este email já está sendo usado&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Este email já está sendo usado</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:27.456145" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${JSON_MESSAGE}</value>
+<status status="NOT RUN" start="2025-03-30T16:27:27.456145" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:27.455048" elapsed="0.001097"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:27.456145" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:27.456145" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:27.453954" elapsed="0.002191"/>
+</if>
+<msg time="2025-03-30T16:27:27.456145" level="INFO">${ID} = wuMtif6RM9hA0UnY</msg>
+<var>${ID}</var>
+<doc>Envia Requisição GET de Lista de Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:27.096104" elapsed="0.360041"/>
+</kw>
+<kw name="Given Eu clico no botão CADASTRAR" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.458280" elapsed="0.021818"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:27.480098" level="INFO">Clicking element 'css=[data-testid="cadastrar"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.480098" elapsed="0.054527"/>
+</kw>
+<arg>${LOGIN.CADASTRAR.BUTTON}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.457251" elapsed="0.077374"/>
+</kw>
+<kw name="When eu preencho o campo NOME" owner="commons">
+<kw name="First Name" owner="FakerLibrary">
+<msg time="2025-03-30T16:27:27.535841" level="INFO">${NOME_FAKER} = Ronnie</msg>
+<var>${NOME_FAKER}</var>
+<status status="PASS" start="2025-03-30T16:27:27.535841" elapsed="0.000000"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:27.536854" level="INFO">${NOME_FAKER} = Ronnie</msg>
+<arg>${NOME_FAKER}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.535841" elapsed="0.001013"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.536854" elapsed="0.018357"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:27.556291" level="INFO">Typing text 'QATEST_Ronnie' into text field 'css=[data-testid="nome"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${PREFIXO_NOME_USUARIO}${NOME_FAKER}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.555211" elapsed="0.094939"/>
+</kw>
+<return>
+<status status="PASS" start="2025-03-30T16:27:27.650150" elapsed="0.001311"/>
+</return>
+<arg>${SIGNUP.NOME.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.535841" elapsed="0.115620"/>
+</kw>
+<kw name="And eu preencho o campo EMAIL" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.652967" elapsed="0.017523"/>
+</kw>
+<kw name="User Id Generator" owner="user_id_generator">
+<msg time="2025-03-30T16:27:27.671666" level="INFO">${USER_ID} = Ronnie08a43f01-4e1d</msg>
+<var>${USER_ID}</var>
+<arg>${NOME_FAKER}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.671666" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:27.672171" level="INFO">Typing text 'Ronnie08a43f01-4e1d@qateste.com.br' into text field 'css=[data-testid="email"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>${USER_ID}@qateste.com.br</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.672171" elapsed="0.116551"/>
+</kw>
+<return>
+<value>${USER_ID}@qateste.com.br</value>
+<status status="PASS" start="2025-03-30T16:27:27.790144" elapsed="0.000000"/>
+</return>
+<msg time="2025-03-30T16:27:27.790144" level="INFO">${EMAIL} = Ronnie08a43f01-4e1d@qateste.com.br</msg>
+<var>${EMAIL}</var>
+<arg>${SIGNUP.EMAIL.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.652461" elapsed="0.137683"/>
+</kw>
+<kw name="And eu preencho o campo SENHA" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.790144" elapsed="0.015989"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:27.807142" level="INFO">Typing text 'teste' into text field 'css=[data-testid="password"]'.</msg>
+<arg>${SELECTOR}</arg>
+<arg>teste</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.806133" elapsed="0.108499"/>
+</kw>
+<arg>${SIGNUP.SENHA.INPUT}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.790144" elapsed="0.124488"/>
+</kw>
+<kw name="And eu marco o checkbox de administrador" owner="commons">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:27.915638" level="INFO">Clicking element 'css=[data-testid="checkbox"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:27.915638" elapsed="0.110552"/>
+</kw>
+<arg>${SIGNUP.CADASTRAR.CHECKBOX}</arg>
+<status status="PASS" start="2025-03-30T16:27:27.915638" elapsed="0.110552"/>
+</kw>
+<kw name="When eu clico no botão CADASTRAR" owner="commons">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECTOR}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:28.026190" elapsed="0.014937"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:28.041127" level="INFO">Clicking element 'css=[data-testid="cadastrar"]'.</msg>
+<arg>${SELECTOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:28.041127" elapsed="0.099410"/>
+</kw>
+<arg>${SIGNUP.CADASTRAR.BUTTON}</arg>
+<status status="PASS" start="2025-03-30T16:27:28.026190" elapsed="0.114347"/>
+</kw>
+<kw name="Then sou redirecionado para a tela HOME" owner="listar_usuarios_steps">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${HOME.TEXTO_APRESENTACAO.H1}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-03-30T16:27:28.142013" elapsed="4.070589"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-03-30T16:27:32.226642" level="INFO">${text} = Bem Vindo QATEST_Ronnie</msg>
+<var>${text}</var>
+<arg>${HOME.TEXTO_APRESENTACAO.H1}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.212602" elapsed="0.014040"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${text}</arg>
+<arg>Bem Vindo QATEST_</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.226642" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:28.142013" elapsed="4.084629"/>
+</kw>
+<kw name="Enviar Requisição DELETE de Excluir Usuários" owner="cadastro_usuario_api_steps">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:32.227645" level="INFO">Creating Session using : alias=SERVEREST, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=15, proxies=None, verify=False,                     debug=0 </msg>
+<arg>SERVEREST</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=15</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-03-30T16:27:32.227645" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE" owner="RequestsLibrary">
+<msg time="2025-03-30T16:27:32.565673" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/wuMtif6RM9hA0UnY 
+ path_url=/usuarios/wuMtif6RM9hA0UnY 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-03-30T16:27:32.565673" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/wuMtif6RM9hA0UnY 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '98ae4ba91549bd2686fa64f0b4fa891d', 'date': 'Sun, 30 Mar 2025 19:27:33 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg time="2025-03-30T16:27:32.566768" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.227645" elapsed="0.339123"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:32.566768" level="INFO">{'message': 'Registro excluído com sucesso'}</msg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.566768" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:32.567871" level="INFO">${JSON_CONTENT} = {'message': 'Registro excluído com sucesso'}</msg>
+<var>${JSON_CONTENT}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.567871" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-03-30T16:27:32.568957" level="INFO">${JSON_MESSAGE} = Registro excluído com sucesso</msg>
+<var>${JSON_MESSAGE}</var>
+<arg>${RESPONSE.json()}[message]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.567871" elapsed="0.001086"/>
+</kw>
+<if>
+<branch type="IF" condition="($JSON_MESSAGE == &quot;Registro excluído com sucesso&quot;)">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-03-30T16:27:32.568957" level="INFO">Registro excluído com sucesso</msg>
+<arg>Registro excluído com sucesso</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Registro excluído com sucesso</value>
+<status status="PASS" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE IF" condition="($JSON_MESSAGE == &quot;Nenhum registro excluído&quot;)">
+<kw name="Log" owner="BuiltIn">
+<arg>Nenhum registro excluído</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</kw>
+<return>
+<value>Nenhum registro excluído</value>
+<status status="NOT RUN" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>A resposta não contém as mensagens esperadas.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2025-03-30T16:27:32.568957" elapsed="0.000000"/>
+</if>
+<arg>${ID}</arg>
+<doc>Envia Requisição DELETE de Excluir Usuários</doc>
+<status status="PASS" start="2025-03-30T16:27:32.227645" elapsed="0.341312"/>
+</kw>
+<kw name="fechar Browser" owner="commons" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-03-30T16:27:32.570045" elapsed="2.187169"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:32.570045" elapsed="2.187169"/>
+</kw>
+<status status="PASS" start="2025-03-30T16:27:21.698447" elapsed="13.058767"/>
+</test>
+<status status="PASS" start="2025-03-30T16:27:00.173460" elapsed="34.585184"/>
+</suite>
+<status status="PASS" start="2025-03-30T16:27:00.155386" elapsed="34.604441"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="E2E" id="s1" pass="3" fail="0" skip="0">E2E</stat>
+<stat name="Tests E2E" id="s1-s1" pass="3" fail="0" skip="0">E2E.Tests E2E</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
