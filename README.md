@@ -69,10 +69,10 @@ Para garantir a configuração correta, você pode seguir em ordem os tópicos e
 
 
 ### 📊 Pipeline
-_(explicar a Pipeline utilizada)_
+Pipeline integrada no Github Actions, executando esteira de testes WEB e API, com geração de relatórios após execução.
 
 ## ⛓️ Arquitetura
-_(explicar a arquitetura utilizada)_
+Arquitetura do projeto segue padrões POM (Page Objects Model).
 
 ## 🧩 Padrões e boas práticas
 >  Não custa lembrar logo alguns pontos básicos:
