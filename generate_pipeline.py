@@ -4,7 +4,7 @@ from jinja2 import Environment, FileSystemLoader
 env = Environment(loader=FileSystemLoader("."))
 
 # Carrega o template
-template = env.get_template("robot-pipeline.yml.j2")
+template = env.get_template("templates/robot-framework.yml.j2")
 
 # Define as variáveis dinâmicas
 config = {
@@ -20,7 +20,7 @@ config = {
 pipeline_yaml = template.render(config)
 
 # Salva o arquivo gerado
-with open("robot-pipeline.yml", "w") as f:
+with open("robot-framework.yml", "w", encoding="utf-8") as f:
     f.write(pipeline_yaml)
 
 print("Pipeline YAML gerado com sucesso!")

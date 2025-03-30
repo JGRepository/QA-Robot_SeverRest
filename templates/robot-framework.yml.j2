@@ -22,6 +22,10 @@ jobs:
           pip install robotframework
           pip install robotframework-seleniumlibrary
           echo "Verificando instalação..."
+          
+      - name: Gerar o pipeline atualizado com Jinja
+        run: python generate_pipeline.py
+
           - name: Instalar navegadores e drivers
           run: |
             sudo apt update

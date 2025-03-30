@@ -1,0 +1,65 @@
+name: Robot Framework Testes com Health Check e Proxy
+
+on: push
+ 
+jobs:
+  test:
+    name: Testes Regressivos Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checar código do repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework
+          pip install robotframework-seleniumlibrary
+          echo "Verificando instalação..."
+          
+      - name: Gerar o pipeline atualizado com Jinja
+        run: python generate_pipeline.py
+
+      - name: Instalar navegadores e drivers
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable firefox microsoft-edge-stable
+          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget -q "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          geckodriver_version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .tag_name)
+          wget -q "https://github.com/mozilla/geckodriver/releases/download/${geckodriver_version}/geckodriver-linux64.tar.gz"
+          tar -xzf geckodriver-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+  
+      - name: Executar testes no Chrome
+        run: robot --variable BROWSER:chrome --variable HEADLESS:true --outputdir results/web/chrome --report report_chrome.html --log log_chrome.html tests/serverestDev/e2e/tests_e2e.robot
+  
+      - name: Executar testes no Firefox
+        run: robot --variable BROWSER:edge --variable HEADLESS:true --outputdir results/web/edge --report report_edge.html --log log_edge.html tests/serverestDev/e2e/tests_e2e.robot
+  
+      - name: Executar testes no Edge
+        run: robot --variable BROWSER:firefox --variable HEADLESS:true --outputdir results/web/firefox --report report_firefox.html --log log_firefox.html tests/serverestDev/e2e/tests_e2e.robot
+  
+      - name: Upload de Relatórios
+        uses: actions/upload-artifact@v4
+        with:
+          name: Relatorio-Testes
+          path: results/
+      
+    
+      - name: Salvando Resultado dos Testes
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+            name: resultado-testes
+            path: results
+  
+        
