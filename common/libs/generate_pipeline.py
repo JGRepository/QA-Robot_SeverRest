@@ -8,12 +8,9 @@ template = env.get_template("templates/robot-framework.yml.j2")
 
 # Define as variáveis dinâmicas
 config = {
-    "headless": "true",  
+    "browsers": ['chrome', 'firefox', 'edge'],  # Lista com os navegadores que queremos usar
     "test_path_web": "tests/serverestDev/e2e/tests_e2e.robot",
-    "test_path_api": "API/serverestDev/tests/cadastro_usuario_api_tests.robot",
-    "output_chrome": "results/web/chrome",
-    "output_edge": "results/web/edge",
-    "output_firefox": "results/web/firefox"
+
 }
 
 # Renderiza o YAML final

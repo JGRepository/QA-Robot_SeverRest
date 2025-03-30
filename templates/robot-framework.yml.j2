@@ -1,50 +1,40 @@
-name: Testes Automatizados com Robot Framework
+name: Testes Automatizados com Robot Framework + Selenium
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    name: Robot@${{ matrix.browser }}_${{ matrix.os }}
+  test:
+    name: Testes Selenium no navegador {{ browser }}
+    runs-on: ubuntu-latest
+
     strategy:
-      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        browser: [chromium, firefox, webkit] # Testes rodarão nesses navegadores
-
-    runs-on: ${{ matrix.os }}
-
-    permissions:
-      contents: write
+        browser: [chrome, edge, firefox]  # Definindo os 3 navegadores para o matrix
+        
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Instalar Python e dependências
+      - name: Instalar dependências
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install robotframework-seleniumlibrary
           sudo apt-get update
           sudo apt-get install -y chromium-chromedriver firefox-geckodriver
 
-      - name: Executar testes no ${{ matrix.browser }}
+      - name: Executar Testes Robot no navegador {{ browser }}
         run: |
-          robot --variable BROWSER:${{ matrix.browser }} --variable HEADLESS:true --outputdir results/${{ matrix.browser }} tests/
+          robot --variable BROWSER:{{ browser }} --variable HEADLESS:true --outputdir results/{{ browser }} tests/
 
       - name: Armazenar Relatórios
         uses: actions/upload-artifact@v3
         with:
-          name: Test-Reports-${{ matrix.browser }}
-          path: results/${{ matrix.browser }}/
-
-      - name: Salvando Resultado dos Testes
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: resultado-testes-${{ matrix.browser }}
-          path: results/${{ matrix.browser }}
+          name: Test-Reports-{{ browser }}
+          path: results/{{ browser }}/
