@@ -34,14 +34,15 @@ jobs:
         run: |
           robot --outputdir results/api API/serverestDev/tests
 
-      - name: Criar diretório do Chrome User Data
-        run: mkdir -p /tmp/chrome-profile
-
       - name: Execução dos Testes WEB
         run: |
+          # Create a unique directory for this run
+          export CHROME_PROFILE_DIR="/tmp/chrome-profile-$(date +%s%N)"
+          mkdir -p $CHROME_PROFILE_DIR
+          
           robot --variable BROWSER:chrome \
                 --variable HEADLESS:true \
-                --variable USER_DATA_DIR:/tmp/chrome-profile \
+                --variable USER_DATA_DIR:$CHROME_PROFILE_DIR \
                 --outputdir results/web tests/serverestDev/e2e
 
       - name: Salvando Resultado dos Testes
