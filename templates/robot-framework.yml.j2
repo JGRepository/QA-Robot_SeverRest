@@ -24,7 +24,7 @@ jobs:
       
       - name: Execução dos Testes Web
         run: |
-          robot --outputdir results/ {{ test_path_web }}
+          robot --outputdir results/ {{ test_path_api }}
 
       - name: Salvando Resultado dos Testes
         uses: actions/upload-artifact@v4

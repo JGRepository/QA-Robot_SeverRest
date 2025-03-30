@@ -9,6 +9,7 @@ template = env.get_template("templates/robot-framework.yml.j2")
 # Define as variáveis dinâmicas
 config = {
     "test_path_web": "tests/serverestDev/e2e",
+    "test_path_api": "API/serverestDev/tests"
 
 }
 
