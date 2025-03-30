@@ -22,15 +22,6 @@ jobs:
           pip install robotframework-faker
           pip install -r requirements.txt
 
-      - name: Instalar o Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install ./google-chrome-stable_current_amd64.deb
-
-      
-      
       - name: Instalar dos2unix
         run: sudo apt-get update && sudo apt-get install -y dos2unix
 
