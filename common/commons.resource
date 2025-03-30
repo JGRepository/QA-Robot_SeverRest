@@ -8,7 +8,7 @@ Library    libs/user_id_generator.py
 *** Keywords ***
 eu acesso o site
 
-    Open Browser    ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS}, --user-data-dir")
+    Open Browser    ${URL_serverestDev}    ${BROWSER}     options=add_argument("--user-data-dir=/tmp/selenium-user")
 
 fechar Browser
     Close Browser

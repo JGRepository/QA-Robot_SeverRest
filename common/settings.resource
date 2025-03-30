@@ -1,7 +1,7 @@
 *** Variables ***
 
 ${URL_serverestDev}         https://front.serverest.dev/
-${HEADLESS}                 --head
+${HEADLESS}                 --headless
 ${BROWSER}                  chrome
 
 ${EMAIL_CASDASTRADO}        robot@example.com
