@@ -22,22 +22,22 @@ jobs:
           pip install robotframework
           pip install robotframework-seleniumlibrary
           echo "Verificando instalação..."
-          
+
       - name: Gerar o pipeline atualizado com Jinja
         run: python generate_pipeline.py
 
-          - name: Instalar navegadores e drivers
-          run: |
-            sudo apt update
-            sudo apt install -y google-chrome-stable firefox microsoft-edge-stable
-            CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-            wget -q "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
-            unzip chromedriver_linux64.zip
-            sudo mv chromedriver /usr/local/bin/
-            geckodriver_version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .tag_name)
-            wget -q "https://github.com/mozilla/geckodriver/releases/download/${geckodriver_version}/geckodriver-linux64.tar.gz"
-            tar -xzf geckodriver-linux64.tar.gz
-            sudo mv geckodriver /usr/local/bin/
+      - name: Instalar navegadores e drivers
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable firefox microsoft-edge-stable
+          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget -q "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          geckodriver_version=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .tag_name)
+          wget -q "https://github.com/mozilla/geckodriver/releases/download/${geckodriver_version}/geckodriver-linux64.tar.gz"
+          tar -xzf geckodriver-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
   
       - name: Executar testes no Chrome
         run: robot --variable BROWSER:chrome --variable HEADLESS:{{ headless }} --outputdir {{ output_chrome }} --report report_chrome.html --log log_chrome.html {{ test_path_web }}
