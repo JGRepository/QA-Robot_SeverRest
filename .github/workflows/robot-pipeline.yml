@@ -42,7 +42,6 @@ jobs:
           
           robot --variable BROWSER:chrome \
                 --variable HEADLESS:true \
-                --variable USER_DATA_DIR:$CHROME_PROFILE_DIR \
                 --outputdir results/web tests/serverestDev/e2e
 
       - name: Salvando Resultado dos Testes
