@@ -30,9 +30,13 @@ jobs:
           find . -type f -exec dos2unix {} +
           find . -type f -exec sed -i 's|\\|/|g' {} +
 
-      - name: Execução dos Testes Web
+      - name: Execução dos Testes API
         run: |
-          robot --outputdir results/ {{ test_path_api }}
+          robot --outputdir results/api {{ test_path_api }}
+
+      - name: Execução dos Testes WEB
+        run: |
+          robot --outputdir results/web {{ test_path_web }}
 
       - name: Salvando Resultado dos Testes
         uses: actions/upload-artifact@v4
