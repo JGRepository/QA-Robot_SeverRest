@@ -44,6 +44,7 @@ jobs:
                 --variable HEADLESS:--headless \
                 --variable USER_DATA_DIR:$CHROME_PROFILE_DIR \
                 --variable START_FULLSCREEN:"--start-fullscreen" \
+                --variable WINDOW_SIZE:"--window-size=1920x1080" \
                 --outputdir results/web tests/serverestDev/e2e
 
       - name: Salvando Resultado dos Testes
