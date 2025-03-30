@@ -606,7 +606,7 @@
 <kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.EMAIL.INPUT}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:09.470374" elapsed="0.025797"/>
 </kw>
@@ -623,7 +623,7 @@
 <kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.SENHA.INPUT}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:09.610663" elapsed="0.033288"/>
 </kw>
@@ -640,7 +640,7 @@
 <kw name="And eu clique no botão ENTRAR" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.ENTRAR.BUTTON}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:09.715335" elapsed="0.013842"/>
 </kw>
@@ -655,7 +655,7 @@
 <kw name="And eu clico no item de MENU" owner="home_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:09.814651" elapsed="1.334373"/>
 </kw>
@@ -683,7 +683,7 @@
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:11.232965" elapsed="0.025993"/>
 </kw>
@@ -703,7 +703,7 @@
 <kw name="And eu preencho o campo EMAIL" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:11.380238" elapsed="0.115407"/>
 </kw>
@@ -732,7 +732,7 @@
 <kw name="And eu preencho o campo SENHA" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:11.638497" elapsed="0.026747"/>
 </kw>
@@ -759,7 +759,7 @@
 <kw name="And eu clico no botão CADASTRAR" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:11.842772" elapsed="0.025321"/>
 </kw>
@@ -775,7 +775,7 @@
 <kw name="Then sou redirecionado para a tela LISTAR USUARIOS" owner="listar_usuarios_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LIST_USUARIO.TEXTO_APRESENTACAO.H1}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:11.949294" elapsed="0.442406"/>
 </kw>
@@ -804,7 +804,7 @@
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${ELEMENT}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:12.427984" elapsed="0.485147"/>
 </kw>
@@ -1516,7 +1516,7 @@
 <kw name="Given eu preencha o campo NOME com o [valor]" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.EMAIL.INPUT}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:20.425985" elapsed="0.024257"/>
 </kw>
@@ -1533,7 +1533,7 @@
 <kw name="And eu preencha o campo SENHA com o [valor]" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.SENHA.INPUT}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:20.569062" elapsed="0.019204"/>
 </kw>
@@ -1550,7 +1550,7 @@
 <kw name="And eu clique no botão ENTRAR" owner="login_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOGIN.ENTRAR.BUTTON}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:20.688077" elapsed="0.013540"/>
 </kw>
@@ -1565,7 +1565,7 @@
 <kw name="And eu clico no item de MENU" owner="home_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:20.772403" elapsed="1.074156"/>
 </kw>
@@ -1582,7 +1582,7 @@
 <kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:21.889772" elapsed="0.018430"/>
 </kw>
@@ -1601,7 +1601,7 @@
 <kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:22.086409" elapsed="0.014479"/>
 </kw>
@@ -1620,7 +1620,7 @@
 <kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:22.169572" elapsed="0.013601"/>
 </kw>
@@ -1639,7 +1639,7 @@
 <kw name="And eu preencho o [CAMPO] de cadastro de produto" owner="cadastrar_produto_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:22.278111" elapsed="0.006028"/>
 </kw>
@@ -1668,7 +1668,7 @@
 <kw name="When eu clico no botão CADASTRAR" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:22.381285" elapsed="0.011336"/>
 </kw>
@@ -2373,7 +2373,7 @@
 <kw name="Given Eu clico no botão CADASTRAR" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.016071" elapsed="0.021572"/>
 </kw>
@@ -2400,7 +2400,7 @@
 </kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.104923" elapsed="0.018521"/>
 </kw>
@@ -2420,7 +2420,7 @@
 <kw name="And eu preencho o campo EMAIL" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.223188" elapsed="0.019670"/>
 </kw>
@@ -2449,7 +2449,7 @@
 <kw name="And eu preencho o campo SENHA" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.358361" elapsed="0.013525"/>
 </kw>
@@ -2476,7 +2476,7 @@
 <kw name="When eu clico no botão CADASTRAR" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${SELECTOR}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.498615" elapsed="0.010195"/>
 </kw>
@@ -2492,7 +2492,7 @@
 <kw name="Then sou redirecionado para a tela HOME" owner="listar_usuarios_steps">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${HOME.TEXTO_APRESENTACAO.H1}</arg>
-<arg>timeout=15s</arg>
+<arg>timeout=30s</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
 <status status="PASS" start="2025-03-30T16:58:34.567203" elapsed="4.280397"/>
 </kw>

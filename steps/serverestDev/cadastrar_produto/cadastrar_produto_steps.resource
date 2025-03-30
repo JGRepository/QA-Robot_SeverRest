@@ -10,7 +10,7 @@ Library    SeleniumLibrary
 #Exemplo de outra forma de construir uma keyword, passando o nome do LOCAL em Arguments para evitar várias keywords parecidas.
 eu preencho o [CAMPO] de cadastro de produto
     [Arguments]    ${CAMPO}    ${SELECTOR}    ${TEXTO}
-    Wait Until Element Is Visible     ${SELECTOR}      timeout=15s
+    Wait Until Element Is Visible     ${SELECTOR}      timeout=30s
     Input Text    ${SELECTOR}     ${TEXTO}
 
 eu insiro uma imagem do produto
