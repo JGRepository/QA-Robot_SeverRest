@@ -2,7 +2,7 @@
 
 Este projeto contempla a automação de testes do site ServeRest
 Considerações iniciais:
-- Este projeto Utiliza a Biblioteca Selenium
+Este projeto Utiliza a Biblioteca Selenium
 Foi escolhida a biblioteca Selenium para criar a esteira de testes por se tratar de uma biblioteca mais popular e comum em testes WEB. Entretando o site oferece seletor data-testid, logo, uma opção seria utilizar a biblioteca BROWSER com auxilio do playwirght. Essa biblioteca tem suporte nativo a esse seletor e roda em base chromium que ajuda a ver comportamento mais básicos dos navegadores.
 
 Também foi construído de forma mais simplista valorizando a criação de variáveis para aproveitar em iterações e deixar o código mais legível uma vez que estamos utilizando design patterns bem definido. Mas poderiamos trocar por um dicionário de dados, movendo as variáveis para um &{LOGIN} por exemplo.
@@ -10,10 +10,16 @@ Também foi construído de forma mais simplista valorizando a criação de vari�
 As keywords foram estruturadas para receberem parâmetros e serem o mais reaproveitaveis possível dentro do código. E também estão descritas em formato que valoriza o GHERKIN / BDD.
 
 
-- _Consultando Serviços a serem testados
+####  Testes WEB
+- Cadastro de usuário via SIGNUP
+- Cadastro de usuário na área logada
+- Cadastro de Produto
 
-Teste de API para:
-- _Consultando Serviços a serem testados_
+####  Testes API
+- Verificar comportamento CRUD das APIs
+- Criar usuário
+- Apagar todos os usuários cadastrados da área logada
+- Criar usuário e fazer login
 
 ### SUMÁRIO
 - [🤓 Começando](#-começando)

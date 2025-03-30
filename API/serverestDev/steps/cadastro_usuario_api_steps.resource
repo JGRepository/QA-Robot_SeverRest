@@ -49,7 +49,6 @@ Enviar Requisição GET de Lista de Usuários
           ${ID_USUARIO}  Get From Dictionary  ${USUARIOS[0]}  _id
           RETURN    ${ID_USUARIO}
     ELSE
-        Log To Console    Não tem usuários cadastrados
         RETURN    teste
     END
 
@@ -118,3 +117,13 @@ Enviar Requisição DELETE de Excluir TODOS Usuários
        Log  Resposta: ${RESPONSE.content.decode("utf-8")}
     END
     
+Enviar requisição POST de Realizar Login
+    [Documentation]  Envia Requisição POST de Realizar Login
+    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+    ${payload}  Load JSON From File  ${REALIZAR_CADASTRO.JSON} 
+    ${headers}=  Create Dictionary  Content-Type=application/json
+    ${RESPONSE}=  POST  ${BASE_URL}${URI.LOGIN}   json=${payload}  headers=${headers}     expected_status=200
+    ${JSON_CONTENT}     set Variable    ${response.json()}
+    Log   ${JSON_CONTENT}
+    Should Be Equal    ${JSON_CONTENT}[message]    Login realizado com sucesso
+    RETURN     ${JSON_CONTENT}

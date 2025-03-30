@@ -15,3 +15,12 @@ Criar usuário
 Apagar todos os usuários cadastrados da área logada
     ${JSON_CONTENT}     Enviar Requisição GET de Lista de Usuários por nome
                         Enviar Requisição DELETE de Excluir TODOS Usuários    ${JSON_CONTENT}
+
+Criar usuário e fazer login
+                Configurar usuário antes do inicio dos testes
+
+    ${ID}       Enviar Requisição POST de Criação de Usuários
+                Enviar requisição POST de Realizar Login
+                
+                
+                Enviar Requisição DELETE de Excluir Usuários                       ${ID}

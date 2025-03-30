@@ -8,7 +8,7 @@ Library    ../../../common/libs/user_id_generator.py
 *** Keywords ***
 eu acesso o site
 
-    Open Browser    ${URL_serverestDev}    ${BROWSER}     
+    Open Browser    ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS}")
 
 fechar Browser
     Close Browser
