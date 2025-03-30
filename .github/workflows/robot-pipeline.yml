@@ -18,6 +18,8 @@ jobs:
 
       - name: Instalar Dependencias do Projeto
         run: |
+          pip install robotframework
+          pip install robotframework-faker
           pip install -r requirements.txt
       
       - name: Execução dos Testes Web
