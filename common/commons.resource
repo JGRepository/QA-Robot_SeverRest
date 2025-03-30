@@ -3,7 +3,7 @@ Resource    settings.resource
 
 Library    SeleniumLibrary
 Library    FakerLibrary
-Library    ../../../common/libs/user_id_generator.py
+Library    libs/user_id_generator.py
 
 *** Keywords ***
 eu acesso o site
