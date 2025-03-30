@@ -41,7 +41,8 @@ jobs:
           mkdir -p $CHROME_PROFILE_DIR
           
           robot --variable BROWSER:chrome \
-                --variable HEADLESS:true \
+                --variable HEADLESS:--headless \
+                -variable USER_DATA_DIR:/tmp/chrome-profile \
                 --outputdir results/web tests/serverestDev/e2e
 
       - name: Salvando Resultado dos Testes
