@@ -22,6 +22,11 @@ jobs:
           pip install robotframework-faker
           pip install -r requirements.txt
       
+      - name: Ajustar permissões e normalizar caminhos
+        run: |
+          find . -type f -exec dos2unix {} +
+          find . -type f -exec sed -i 's|\\|/|g' {} +
+
       - name: Execução dos Testes Web
         run: |
           robot --outputdir results/ API/serverestDev/tests
