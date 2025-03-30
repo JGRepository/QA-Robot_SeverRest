@@ -11,7 +11,7 @@ Library    Collections
 
 Enviar Requisição POST de Criação de Usuários
     [Documentation]  Envia Requisição GET de Lista de Usuários
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${payload}=  Load JSON From File  ${CRIAR_USUARIO.JSON} 
     ${headers}=  Create Dictionary  Content-Type=application/json
     ${RESPONSE}=  POST  ${BASE_URL}${URI.USUARIOS}   json=${payload}  headers=${headers}     expected_status=anything 
@@ -36,7 +36,7 @@ Enviar Requisição POST de Criação de Usuários
 
 Enviar Requisição GET de Lista de Usuários
     [Documentation]  Envia Requisição GET de Lista de Usuários
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${EMAIL}  Load JSON From File  ${CRIAR_USUARIO.JSON} 
     ${PARAMS}     Create Dictionary    email=${EMAIL}[email]
     ${RESPONSE}  GET   ${BASE_URL}${URI.USUARIOS}    params=${PARAMS}    expected_status=200
@@ -56,7 +56,7 @@ Enviar Requisição GET de Lista de Usuários
 Enviar Requisição PUT de Alteração de Usuário alternando o NOME
     [Documentation]  Envia Requisição PUT de Alteração de Usuário alternando o NOME
     [Arguments]    ${ID_USUARIO}
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${payload}  Load JSON From File  ${ATUALIZAR_USUARIO.JSON} 
     ${headers}=  Create Dictionary  Content-Type=application/json
     ${RESPONSE}=  PUT  ${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}   json=${payload}  headers=${headers}     expected_status=200
@@ -67,7 +67,7 @@ Enviar Requisição PUT de Alteração de Usuário alternando o NOME
 Enviar Requisição DELETE de Excluir Usuários
     [Documentation]  Envia Requisição DELETE de Excluir Usuários
     [Arguments]    ${ID_USUARIO}
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${RESPONSE}=  DELETE  ${BASE_URL}${URI.USUARIOS}/${ID_USUARIO}  expected_status=200
     Log  ${RESPONSE.json()}
     ${JSON_CONTENT}     set Variable    ${response.json()}
@@ -95,7 +95,7 @@ Configurar usuário antes do inicio dos testes
 
 Enviar Requisição GET de Lista de Usuários por nome
     [Documentation]  Envia Requisição GET de Lista de Usuários por nome
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${PARAMS}     Create Dictionary    nome=${PREFIXO_NOME_USUARIO} 
     ${RESPONSE}  GET   ${BASE_URL}${URI.USUARIOS}    params=${PARAMS}    expected_status=200
     ${JSON_CONTENT}     set Variable    ${response.json()}
@@ -119,7 +119,7 @@ Enviar Requisição DELETE de Excluir TODOS Usuários
     
 Enviar requisição POST de Realizar Login
     [Documentation]  Envia Requisição POST de Realizar Login
-    Create Session  SERVEREST  ${BASE_URL}    timeout=15
+   
     ${payload}  Load JSON From File  ${REALIZAR_CADASTRO.JSON} 
     ${headers}=  Create Dictionary  Content-Type=application/json
     ${RESPONSE}=  POST  ${BASE_URL}${URI.LOGIN}   json=${payload}  headers=${headers}     expected_status=200
