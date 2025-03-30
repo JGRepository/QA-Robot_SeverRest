@@ -36,7 +36,10 @@ jobs:
 
       - name: Execução dos Testes WEB
         run: |
-          robot --variable BROWSER:chrome --variable HEADLESS:true --outputdir results/web {{ test_path_web }}
+          robot --variable BROWSER:chrome \
+                --variable HEADLESS:true \
+                --variable USER_DATA_DIR:/tmp/chrome-profile \
+                --outputdir results/web {{ test_path_web }}
 
       - name: Salvando Resultado dos Testes
         uses: actions/upload-artifact@v4
