@@ -8,7 +8,7 @@ Library    libs/user_id_generator.py
 *** Keywords ***
 eu acesso o site
 
-    Open Browser     ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS} --start-fullscreen")
+    Open Browser     ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS}")
 
 fechar Browser
     Close Browser
