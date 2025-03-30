@@ -8,7 +8,8 @@ Library    libs/user_id_generator.py
 *** Keywords ***
 eu acesso o site
 
-    Open Browser     ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS}")
+    Open Browser     ${URL_serverestDev}    ${BROWSER}     options=add_argument("${HEADLESS} --window-size=1920x1080")
+    Maximize Browser Window
 
 fechar Browser
     Close Browser
