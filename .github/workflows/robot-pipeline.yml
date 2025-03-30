@@ -36,7 +36,6 @@ jobs:
 
       - name: Execução dos Testes WEB
         run: |
-          # Create a unique directory for this run
           export CHROME_PROFILE_DIR="/tmp/chrome-profile-$(date +%s%N)"
           mkdir -p $CHROME_PROFILE_DIR
           
