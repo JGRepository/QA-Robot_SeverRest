@@ -1,40 +1,40 @@
-name: Testes Automatizados com Robot Framework + Selenium
+name: Testes Selenium em Múltiplos Navegadores
 
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
 
 jobs:
-  test:
-    name: Testes Selenium no navegador 
+  test_browsers:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        browser: [chrome, edge, firefox]  # Definindo os 3 navegadores para o matrix
-        
+        browser: [chrome, edge, firefox]
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
+    - name: Checkout do código
+      uses: actions/checkout@v3
 
-      - name: Instalar dependências
-        run: |
-          pip install -r requirements.txt
-          pip install robotframework-seleniumlibrary
-          sudo apt-get update
-          sudo apt-get install -y chromium-chromedriver firefox-geckodriver
+    - name: Configurar Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
 
-      - name: Executar Testes Robot no navegador 
-        run: |
-          robot --variable BROWSER: --variable HEADLESS:true --outputdir results/ tests/
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install robotframework robotframework-seleniumlibrary
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable chromium-chromedriver firefox-geckodriver
 
-      - name: Armazenar Relatórios
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test-Reports-
-          path: results//
+    - name: Executar testes no ${{ matrix.browser }}
+      run: |
+        robot --variable BROWSER:${{ matrix.browser }} --outputdir results/${{ matrix.browser }} tests/serverestDev/e2e
+
+    - name: Armazenar relatórios de teste
+      uses: actions/upload-artifact@v3
+      with:
+        name: relatorio-testes-${{ matrix.browser }}
+        path: results/${{ matrix.browser }}
