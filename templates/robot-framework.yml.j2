@@ -14,7 +14,7 @@ jobs:
       - name: Configuração do Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12'
+          python-version: '3.11'
 
       - name: Instalar Dependencias do Projeto
         run: |
@@ -36,7 +36,7 @@ jobs:
 
       - name: Execução dos Testes WEB
         run: |
-          robot --outputdir results/web {{ test_path_web }}
+          robot --variable BROWSER:chrome --variable HEADLESS:true --outputdir results/web {{ test_path_web }}
 
       - name: Salvando Resultado dos Testes
         uses: actions/upload-artifact@v4
