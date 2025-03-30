@@ -8,7 +8,6 @@ template = env.get_template("templates/robot-framework.yml.j2")
 
 # Define as variáveis dinâmicas
 config = {
-    "browsers": ['chrome', 'firefox', 'edge'],  # Lista com os navegadores que queremos usar
     "test_path_web": "tests/serverestDev/e2e",
 
 }
