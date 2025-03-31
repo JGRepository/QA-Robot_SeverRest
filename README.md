@@ -1,9 +1,11 @@
-# Testes . Automação 
+# Testes | Automação 
 
-Este projeto contempla a automação de testes do site ServeRest
+Este projeto contempla a automação de testes do site ServeRest.
+
 Considerações iniciais:
-Este projeto Utiliza a Biblioteca Selenium
-Foi escolhida a biblioteca Selenium para criar a esteira de testes por se tratar de uma biblioteca mais popular e comum em testes WEB. Entretando o site oferece seletor data-testid, logo, uma opção seria utilizar a biblioteca BROWSER com auxilio do playwirght. Essa biblioteca tem suporte nativo a esse seletor e roda em base chromium que ajuda a ver comportamento mais básicos dos navegadores.
+Este projeto Utiliza a Biblioteca Selenium!
+
+Foi escolhida a biblioteca Selenium para criar a esteira de testes por se tratar de uma biblioteca mais popular e comum em testes WEB. Entretanto o site oferece seletor data-testid, logo, uma opção seria utilizar a biblioteca BROWSER com auxilio do playwirght. Essa biblioteca tem suporte nativo a esse seletor e roda em base chromium que ajuda a ver comportamento mais básicos dos navegadores.
 
 Também foi construído de forma mais simplista valorizando a criação de variáveis para aproveitar em iterações e deixar o código mais legível uma vez que estamos utilizando design patterns bem definido. Mas poderiamos trocar por um dicionário de dados, movendo as variáveis para um &{LOGIN} por exemplo.
 
