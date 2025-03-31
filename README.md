@@ -42,7 +42,7 @@ Para garantir a configuração correta, você pode seguir em ordem os tópicos e
 
 #### 📦🐍 Configure o ambiente virtual Python e instale suas dependências
 
-1. Instalar o Python: [Download - Python](https://www.python.org/downloads/)
+1. Instalar o Python: [Download - Python](https://www.python.org/downloads/) | Versão do Projeto
 2. Acessar o diretório do projeto
 3. Criar o ambiente virtual Python:
    3.1. **Windows**

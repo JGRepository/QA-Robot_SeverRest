@@ -1,5 +1,5 @@
 *** Settings ***
-Resource        ../steps/cadastro_usuario_api_steps.resource
+Resource        ../steps/usuarios_api_steps.resource
 
 *** Test Cases ***
 Verificar comportamento CRUD das APIs 

@@ -1,6 +1,6 @@
 *** Settings ***
 Resource    ../../../steps/settings_steps.resource
-Resource    ../../../API/serverestDev/steps/cadastro_usuario_api_steps.resource
+Resource    ../../../API/serverestDev/steps/usuarios_api_steps.resource
 Resource    ../../../common/commons.resource
 
 Test Setup    eu acesso o site
